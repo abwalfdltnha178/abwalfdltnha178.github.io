@@ -36,4 +36,8 @@ var element = document.querySelector("*");
 
 // تغییر مقدار transition به نیم
 element.style.transition = "0.5s";
+element.style.webkitTransition = "0.5s";
+element.style.MozTransition = "0.5s";
+element.style.oTransition = "0.5s";
+element.style.msTransition ="0.5s";
 }
