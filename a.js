@@ -30,3 +30,10 @@ SvgHeader.classList.remove("svgheader");
 Btn.classList.remove("show");
 SvgHeader.classList.add("svgheader");
 }}
+function Transition(){
+// انتخاب المان با نام "myElement"
+var element = document.querySelector("*");
+
+// تغییر مقدار transition به صفر
+element.style.transition = "0s";
+}
