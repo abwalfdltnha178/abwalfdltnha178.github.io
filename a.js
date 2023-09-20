@@ -34,6 +34,6 @@ function Transition(){
 // انتخاب المان با نام "myElement"
 var element = document.querySelector("*");
 
-// تغییر مقدار transition به صفر
-element.style.transition = "0s";
+// تغییر مقدار transition به نیم
+element.style.transition = "0.5s";
 }
