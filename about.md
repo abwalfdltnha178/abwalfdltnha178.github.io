@@ -22,3 +22,5 @@
 [لینکین](http://linkedin.com/in/abwalfdltnha178)
 
 [پینترست](https://www.pinterest.com/abwalfdltnha178)
+
+<script src="./a.js"></script>
