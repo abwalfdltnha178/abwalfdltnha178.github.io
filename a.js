@@ -1,3 +1,5 @@
+var html = document.getElementsByTagName("html")[0];
+html.setAttribute("dir","rtl");
 function opn(){
 document.getElementsByTagName("nav")[0].classList.toggle("opn");
 document.getElementById("bg-menu").classList.toggle("bg-o");
