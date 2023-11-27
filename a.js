@@ -4,6 +4,7 @@ var linkstyle = document.createElement("link");
 linkstyle.setAttribute("rel","stylesheet");
 linkstyle.setAttribute("href","https://abwalfdltnha178.github.io/a.css");
 document.head.appendChild(linkstyle);
+document.getElementsByTagName("link")[1].removeAttribute("href");
 function opn(){
 document.getElementsByTagName("nav")[0].classList.toggle("opn");
 document.getElementById("bg-menu").classList.toggle("bg-o");
