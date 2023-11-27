@@ -1,5 +1,9 @@
 var html = document.getElementsByTagName("html")[0];
 html.setAttribute("dir","rtl");
+var linkstyle = document.createElement("link");
+linkstyle.setAttribute("rel","stylesheet");
+linkstyle.setAttribute("href","https://abwalfdltnha178.github.io/a.css");
+document.head.appendChild(linkstyle);
 function opn(){
 document.getElementsByTagName("nav")[0].classList.toggle("opn");
 document.getElementById("bg-menu").classList.toggle("bg-o");
