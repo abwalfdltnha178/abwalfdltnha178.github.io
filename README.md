@@ -1,6 +1,6 @@
 # abwalfdltnha178.github.io
 ![گل رز آبی در فصل بهار ](http://abwalfdltnha178.github.io/OIG.jpeg)
->این تصویر با هوش مصنوعی ساخته شده است. [بیشتر بدانید...](https://abwalfdltnha178.github.io/make-photo-site-bing.md)
+>این تصویر با هوش مصنوعی ساخته شده است. [بیشتر بدانید...](https://abwalfdltnha178.github.io/ساخت-تصاویر-با-سایت-بینگ)
 >
 
 سلام این یک وب سایت است که در حال ساخت است و از آن به عنوان رزومه استفاده می شود.
