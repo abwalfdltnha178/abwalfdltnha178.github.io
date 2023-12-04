@@ -261,7 +261,7 @@ function toggleTransition() {
   elements.forEach(element => {
     const styles = getComputedStyle(element);
     if (checkbox.checked) {
-      element.style.transition = styles.transition;
+      element.style.transition = 0.5s;
     } else {
       element.style.transition = 'none';
     }
