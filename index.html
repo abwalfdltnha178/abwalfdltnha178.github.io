@@ -145,6 +145,9 @@ border:2px solid black;
 display:block;
 border-radius:20px;
 }
+label:hover{
+border:2px solid white;
+}
 label:before{
 content:"";
 width:25px;
@@ -158,9 +161,15 @@ top:-5px;
 right:10px;
 transition:0.5s;
 }
+label:before:hover{
+border:2px solid white;
+}
 input:checked+label{
 background:black;
 transition:0.5s;
+}
+input:checked+label:hover{
+background:white;
 }
 input:checked+label:before{
 right:-10px;
@@ -209,8 +218,11 @@ border-radius:70px;}
 .dark-mode nav a:hover {color:black;}
 .dark-mode ul:hover {color:black;background:white;}
 .dark-mode label {border:2px solid white;}
+.dark-mode label:hover{border:2px solid black;}
 .dark-mode label:before {background:#2b2b2b;border:2px solid white;}
+.dark-mode label:before:hover{border:2px solid black;}
 .dark-mode input:checked+label{background:white;}
+.dark-mode input:checked+label:hover{background:black;}
 .dark-mode span{background:white;}
 .dark-mode span:before{background:white;}
 .dark-mode span:after{background:white;}
