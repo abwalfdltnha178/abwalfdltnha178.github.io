@@ -1,0 +1,206 @@
+*{padding:0;
+margin:0;
+transition:0.5s;
+-webkit-transition:0.5s;
+-moz-transition:0.5s;
+-o-transition:0.5s;
+-ms-transition:0.5s;
+}
+.transition-disabled * {
+  transition: none; /* ترنزیشن را غیرفعال کنید */
+-webkit-transition:none;
+-moz-transition:none;
+-o-transition:none;
+-ms-transition:none;
+
+}
+html,body{width:100%;height:100%;}
+:root{scroll-behavior:smooth;}
+header{width:100%;
+height:70px;
+position:fixed;
+z-index:3;
+}
+header svg {height:50px;}
+.svgheader{color:black;}
+header a{text-decoration:none;}
+nav{width:200px;
+
+border-radius:28px;
+font-size:25px;
+position:fixed;
+z-index:5;
+left:-100%;
+top:0;
+background:#2b2b2b2b;}
+nav  a{color:black;text-decoration:none;}
+nav a:hover{color:white;}
+ul {list-style:none;background:;}
+ul:hover{background:black;color:white;}
+.menu span{width:35px;
+height:5px;
+display:block;
+background:black;
+position:absolute;
+z-index:5;
+content:"";}
+.menu span:before{
+width:35px;
+height:5px;
+display:block;
+background:black;
+position:fixed;
+z-index:5;
+content:"";
+top:20px;
+left:20px;
+}
+.menu span:after{
+width:35px;
+height:5px;
+display:block;
+background:black;
+position:fixed;
+z-index:5;
+content:"";
+top:40px;
+left:20px;}
+.menu {width:50px;
+height:50px;
+background:none;
+border:0;
+position:fixed;
+z-index:5;
+top:5px;
+left:5px;}
+.omenu{display:none;}
+.logo{position:absolute;
+right:10px;
+top:10px;}
+.bg-menu {width:100%;
+height:100%;
+backdrop-filter:blur(10px);
+position:fixed;
+top:0;
+z-index:3;
+right:-100%;}
+.opn{left:0;}
+.bg-o{right:0;}
+.Dark {width:50px;
+height:50px;
+position:fixed;
+z-index:2;
+bottom:0;
+right:0;
+background:none;
+border:0;}
+.icon{width:50px;
+height:50px;
+display:inline-block;
+stroke:currentColor;
+backdrop-filter:blur(1px);
+border-radius:50%;
+}
+a{color:#8080ff;
+text-decoration:none;}
+img{border-radius:20px;width:90%;
+vertical-align:center;text-align:center;
+justify-content:center;
+}
+input[type="checkbox"]{
+visibility:hidden;
+}
+label{
+width:30px;
+height:20px;
+background:none;
+border:2px solid black;
+display:block;
+border-radius:20px;
+}
+label:hover{
+border:2px solid white;
+}
+label:before{
+content:"";
+width:25px;
+height:25px;
+background:#f7f7f7;
+border:2px solid black;
+display:block;
+border-radius:50%;
+position:relative;
+top:-5px;
+right:10px;
+transition:0.5s;
+}
+label:before:hover{
+border:2px solid white;
+}
+input:checked+label{
+background:black;
+transition:0.5s;
+}
+input:checked+label:hover{
+background:white;
+}
+input:checked+label:before{
+right:-10px;
+transition:0.5s;
+}
+footer{width:100%;
+background:#CECECE;
+color:white;}
+.hed{width:80%;
+border-radius:10px;
+text-align:center;
+direction:center;
+background:#ccccff;}
+.toggleTransition{
+width:40px;
+height:30px;
+position:absolute;
+right:100px;
+top:25px;
+}
+.ze,.ze span ,.ze tr,.ze td{width:0;font-size:0px;visibility:hidden;}
+.alt{padding:15px;}
+.dark-mode .hed{background:#15152b;}
+.dark-mode footer{background:#1A1A1A;}
+.sun{display:none;}
+.dark-mode .sun{display:inline-block;}
+.dark-mode .moon {display:none;}
+#scroll {width:70px;
+height:70px;
+z-index:2;
+position:fixed;
+bottom:0;
+left:-70px;
+background:none;
+backdrop-filter:blur(1px);
+border:0;
+border-radius:70px;}
+.dark-mode #scroll {color:white;}
+#scroll.show{left:0;}
+.dark-mode {background:black;color:#cccccc;}
+.dark-mode h1,.dark-mode h2,.dark-mode b{color:white;}
+
+.dark-mode .svgheader{color:white;}
+.dark-mode nav {background:#f7f7f72b;}
+.dark-mode nav a{color:white;}
+.dark-mode nav a:hover {color:black;}
+.dark-mode ul:hover {color:black;background:white;}
+.dark-mode label {border:2px solid white;}
+.dark-mode label:hover{border:2px solid black;}
+.dark-mode label:before {background:#2b2b2b;border:2px solid white;}
+.dark-mode label:before:hover{border:2px solid black;}
+.dark-mode input:checked+label{background:white;}
+.dark-mode input:checked+label:hover{background:black;}
+.dark-mode span{background:white;}
+.dark-mode span:before{background:white;}
+.dark-mode span:after{background:white;}
+.dark-mode .Dark{transform:rotate(180deg);}
+.dark-mode a{color:#CECEf9;
+text-decoration:none;}
+.dark-mode img{opacity:0.7;}
+#sun{display:block;color:white;}
