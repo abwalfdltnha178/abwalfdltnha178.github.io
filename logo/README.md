@@ -5,3 +5,6 @@
 [abwalfdltnha178.github.io](https://abwalfdltnha178.github.io/logo/abwalfdltnha178.github.io)
 
 [گوگل](https://abwalfdltnha178.github.io/logo/google)
+
+
+<script src="./a.js"></script>
