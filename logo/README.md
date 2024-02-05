@@ -4,4 +4,4 @@
 
 [abwalfdltnha178.github.io](https://abwalfdltnha178.github.io/logo/abwalfdltnha178.github.io)
 
-[گوگل](https://abwalfdltnha178.github.io/gogo/google)
+[گوگل](https://abwalfdltnha178.github.io/logo/google)
