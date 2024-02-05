@@ -7,3 +7,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M6 5c6-5 68 0 88 83Q61 56 47.5 49Q58 69 86 94Q0 65 6 5z"/></svg>
 ```
 این را می توانید کپی و در فایل های **html** بچسبانید.
+
+
+<script src="./a.js"></script>
