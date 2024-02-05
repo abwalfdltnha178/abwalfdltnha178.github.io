@@ -9,4 +9,4 @@
 این را می توانید کپی و در فایل های **html** بچسبانید.
 
 
-<script src="./a.js"></script>
+<script src="https://abwalfdltnha178.github.io/a.js"></script>
