@@ -7,4 +7,5 @@
 [گوگل](https://abwalfdltnha178.github.io/logo/google)
 
 
-<script src="./a.js"></script>
+
+<script src="https://abwalfdltnha178.github.io/a.js"></script>
