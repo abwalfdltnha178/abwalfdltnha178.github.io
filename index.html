@@ -4,12 +4,12 @@
 <head>
 <meta charset="UTF-8">
 <meta charset="utf-8" name="viewport" content="width=device-width">
-<meta name="theme-color" content="white"  id="themeColor">
+<meta name="theme-color" content="#eeeeee"  id="themeColor">
 <link href="template.css" rel="stylesheet" type="text/css" media="only screen and (min-width: 1024px)">
-<link rel="stylesheet" media="only screen and (min-width: 0px) and (max-width: 320px)" href="../mobile.css">
-<link rel="stylesheet" media="only screen and (min-width:321px) and (max-width:375px)" href="../mobile.css">
-<link rel="stylesheet" media="only screen and (min-width:376px) and (max-width:435px)" href="../mobile.css">
-<link rel="stylesheet" media="only screen and (min-width:436px) and (max-width:768px)" href="../mobile.css">
+<link rel="stylesheet" media="only screen and (min-width: 0px) and (max-width: 320px)" href="https://abwalfdltnha178.github.io/mobile.css">
+<link rel="stylesheet" media="only screen and (min-width:321px) and (max-width:375px)" href="https://abwalfdltnha178.github.io/mobile.css">
+<link rel="stylesheet" media="only screen and (min-width:376px) and (max-width:435px)" href="https://abwalfdltnha178.github.io/mobile.css">
+<link rel="stylesheet" media="only screen and (min-width:436px) and (max-width:768px)">
 <link rel="stylesheet" media="only screen and (min-width:769px) and (max-width:1024px)">
 <link rel="stylesheet" media="only screen and (min-width:1025px) and (max-width:1440px)">
 <link rel="stylesheet" media="only screen and (min-width:1441px) and (max-width:2560px)">
@@ -44,6 +44,7 @@ transition:0.5s;
 
 }
 html,body{width:100%;height:100%;}
+html{background:#eee;}
 :root{scroll-behavior:smooth;}
 header{width:100%;
 height:70px;
@@ -182,7 +183,7 @@ color:white;}
 border-radius:10px;
 text-align:center;
 direction:center;
-background:#ccccff;}
+background:#b0c4eac4;}
 .toggleTransition{
 width:40px;
 height:30px;
@@ -192,8 +193,9 @@ top:25px;
 }
 .ze,.ze span ,.ze tr,.ze td{width:0;font-size:0px;visibility:hidden;}
 .alt{padding:15px;}
-.dark-mode .hed{background:#15152b;}
-.dark-mode footer{background:#1A1A1A;}
+.dark-mode .hed{background:#667dc3a7;}
+.dark-mode .hed a{color:#000000;}
+.dark-mode footer{background:#03111e;}
 .sun{display:none;}
 .dark-mode .sun{display:inline-block;}
 .dark-mode .moon {display:none;}
@@ -209,7 +211,7 @@ border:0;
 border-radius:70px;}
 .dark-mode #scroll {color:white;}
 #scroll.show{left:0;}
-.dark-mode {background:black;color:#cccccc;}
+.dark-mode {background:#0e1922;color:#cccccc;}
 .dark-mode h1,.dark-mode h2,.dark-mode b{color:white;}
 
 .dark-mode .svgheader{color:white;}
@@ -245,7 +247,7 @@ var ColorTheme = document.getElementById("themeColor");
 if(ColorTheme.hasAttribute("content")==true){
 ColorTheme.removeAttribute("content");
 }else{
-ColorTheme.setAttribute("content","black");
+ColorTheme.setAttribute("content","#0e1922");
 }
 if(localStorage.getItem("dark-mode")){
 localStorage.removeItem("dark-mode");
@@ -411,4 +413,4 @@ function toggleTransition() {
 </pre>
 </footer>
 </article>
-</body>
+	</body>
