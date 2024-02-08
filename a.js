@@ -49,3 +49,6 @@ element.style.MozTransition = "0s";
 element.style.oTransition = "0s";
 element.style.msTransition ="0s";
 }
+function addTag(){
+
+ }
