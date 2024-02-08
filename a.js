@@ -49,7 +49,7 @@ element.style.MozTransition = "0s";
 element.style.oTransition = "0s";
 element.style.msTransition ="0s";
 }
-var myMeta = document.creatElement("meta");
+var myMeta = document.createElement("meta");
 myMeta.setAttribute("name", "color-scheme");
-meMeta.setAttribute("content", "light dark");
-document.head.appendChid(myMeta);
+myMeta.setAttribute("content", "light dark");
+document.head.appendChild(myMeta);
