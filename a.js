@@ -49,7 +49,10 @@ element.style.MozTransition = "0s";
 element.style.oTransition = "0s";
 element.style.msTransition ="0s";
 }
+document.addEventListener("DOMContentLoaded", function() {
+  // کد تابع خود را اینجا قرار دهید
 var myMeta = document.createElement("meta");
 myMeta.setAttribute("name", "color-scheme");
 myMeta.setAttribute("content", "light dark");
 document.head.appendChild(myMeta);
+});
