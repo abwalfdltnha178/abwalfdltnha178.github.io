@@ -6,6 +6,6 @@
 
 [گوگل](https://abwalfdltnha178.github.io/logo/google)
 
-
+[تلگرام](https://abwalfdltnha178.github.io/logo/telegram)
 
 <script src="https://abwalfdltnha178.github.io/a.js"></script>
