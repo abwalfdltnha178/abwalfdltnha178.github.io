@@ -101,7 +101,7 @@ footer{width:100%;
 background:#CECECE;
 color:white;}
 .hed{width:80%;
-border-radius:10px;
+border-radius:0 35px 35px 0;
 text-align:center;
 direction:center;
 background:#ccccff;}
