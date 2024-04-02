@@ -83,4 +83,14 @@ function updateThemeColor() {
 }
 
 document.addEventListener("DOMContentLoaded", updateThemeColor);
-document.body.onchange = updateThemeColor;
+
+var observer = new MutationObserver(function(mutationsList, observer) {
+    for(var mutation of mutationsList) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+            updateThemeColor();
+            break;
+        }
+    }
+});
+
+observer.observe(document.body, { attributes: true, subtree: true });
