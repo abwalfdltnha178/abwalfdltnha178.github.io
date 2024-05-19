@@ -1,6 +1,6 @@
 # لوگوی شرکت گوگل
 سلام این هم از لوگوی شرکت **گوگل** با فرمت **SVG** حجم پایین و کیفیت بالا.
-![تصویر لوگوی شرکت گوگل با فرمت svg](https://abwalfdltnha178.github.io/logo/google.svg)
+![تصویر لوگوی شرکت گوگل با فرمت svg](https://abwalfdltnha178.github.io/svg/google.svg)
 
 و این هم از سورس کد تصویر:
 ```
