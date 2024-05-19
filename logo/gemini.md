@@ -3,7 +3,7 @@
 ![تصویر لوگوی هوش مصنوعی گوگل جمینی gemini با فرمت svg](https://abwalfdltnha178.github.io/svg/gemini.svg)
 
 و این هم از سورس کد تصویر:
-```
+```svg
 
 <svg viewBox="0 0 344 127" fill="none" xmlns="http://www.w3.org/2000/svg">
 <mask id="mask0_958_15881" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="344" height="127">
