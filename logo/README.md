@@ -8,4 +8,6 @@
 
 [تلگرام](https://abwalfdltnha178.github.io/logo/telegram)
 
+
+[گوگل جمینی](https://abwalfdltnha178.github.io/logo/gemini)
 <script src="https://abwalfdltnha178.github.io/a.js"></script>
