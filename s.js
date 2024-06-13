@@ -94,5 +94,6 @@ document.addEventListener("DOMContentLoaded", updateThemeColor);
 });
 
 observer.observe(document.documentElement, { attributes: true, subtree: true });
+
 */
 setInterval(updateThemeColor , 500);
