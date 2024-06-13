@@ -95,6 +95,5 @@ var observer = new MutationObserver(function(mutationsList, observer) {
 });
 
 observer.observe(document.documentElement, { attributes: true, subtree: true });
-
 */
 setInterval(updateThemeColor , 500);
