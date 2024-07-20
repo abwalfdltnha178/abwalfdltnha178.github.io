@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa-IR" >
+<head>
+<script type="text/javascript">
+function updateThemeColor() {
+var bgColor = window.getComputedStyle(document.body, null).getPropertyValue('background-color');
+var metaTag = document.querySelector('meta[name="theme-color"]');
+if (metaTag) {
+   metaTag.setAttribute('content', bgColor);
+} else {
+   var newMetaTag = document.createElement('meta');
+   newMetaTag.name = "theme-color";
+   newMetaTag.content = bgColor;
+   document.getElementsByTagName('head')[0].appendChild(newMetaTag);
+}
+}
+
+document.addEventListener("DOMContentLoaded", updateThemeColor);
+setInterval(updateThemeColor , 100);
+
+var c = document.documentElement.classList;
+function toggleDarkLight(){
+c.toggle("dark-mode")
+}
+function orange(){
+c.toggle("orange")
+}
+function red(){
+c.toggle("red")
+}
+</script>
+<style type="text/css">
+body {background:#667dc3;color:white;}
+button {background:none;color:white;border:1px solid white;}
+.dark-mode body {background:black;color:white;}
+.orange body {background:orange;}
+.red body {background:red;}
+</style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#eee" >
+<title></title>
+</head>
+<body>
+<h1>سلام<br></h1>
+<p>خوبی این یک تست از کد جاوااسکریپت برای درستی اجرای کد می باشد.</p>
+<p>برای تغییررنگ صفحه بر روی دکمه های زیر کلیک کنید.</p>
+<button onclick="toggleDarkLight()">طرح زمینه تیره</button>
+<button onclick="orange()">نارنجی</button>
+<button onclick="red()">قرمز</button>
+</body>
+</html>
