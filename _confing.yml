@@ -2,7 +2,7 @@ title: ابوالفضل تنها|بلاگ
 email: your-email@example.com
 description: > # این بدان معناست که خطوط جدید تا "url:" نادیده گرفته شوند
   یک وبلاگ درباره چیزهای فوق‌العاده.
-url: "http://abwalfdltnha178.github.io"
+url: "https://abwalfdltnha178.github.io"
 theme: minima
 plugins:
   - jekyll-feed
