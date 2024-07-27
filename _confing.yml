@@ -1,0 +1,23 @@
+title: ابوالفضل تنها|بلاگ
+email: your-email@example.com
+description: > # این بدان معناست که خطوط جدید تا "url:" نادیده گرفته شوند
+  یک وبلاگ درباره چیزهای فوق‌العاده.
+url: "http://abwalfdltnha178.github.io"
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# تنظیمات پیوند دائمی
+permalink: /:categories/:year/:month/:day/:title.html
+
+# تنظیمات نویسنده
+author:
+  name: ابوالفضل تنها
+  email: abwalfdltnha178@gmail.com
+
+# تنظیمات اجتماعی
+social:
+  twitter: abwalfdltnha178
+  github: abwalfdltnha178
+  linkedin: abwalfdltnha178
