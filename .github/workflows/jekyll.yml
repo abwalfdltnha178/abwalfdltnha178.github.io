@@ -1,5 +1,6 @@
- name: Deploy Jekyll site to GitHub Pages
+name: Deploy Jekyll site to GitHub Pages
 
+# بخش on مشخص می‌کند که این اکشن‌ها در زمان پوش کردن به شاخه main اجرا شوند
 on:
   push:
     branches:
@@ -10,26 +11,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # گام 1: بررسی مخزن
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
+      # گام 2: راه‌اندازی Ruby
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.1'
 
+      # گام 3: نصب وابستگی‌ها
       - name: Install dependencies
         run: |
           gem install bundler
           bundle install
 
+      # گام 4: ساخت سایت Jekyll
       - name: Build Jekyll site
         run: bundle exec jekyll build
 
+      # گام 5: انتشار به GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./_site
+          
