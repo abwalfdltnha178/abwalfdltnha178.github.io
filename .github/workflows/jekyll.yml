@@ -25,14 +25,20 @@ jobs:
           gem install bundler
           bundle install
 
-      - name: Build Jekyll site
-        run: bundle exec jekyll build
+      - name: Clean and build Jekyll site
+        run: |
+          rm -rf _site
+          bundle exec jekyll build
 
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          rm -rf ./_site/.git  # اطمینان از حذف پوشه .git در publish_dir
+          echo "Git configured"
+
+      - name: Debug - List files in _site
+        run: |
+          ls -la _site
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
