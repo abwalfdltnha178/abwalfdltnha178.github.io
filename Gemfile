@@ -6,3 +6,5 @@ gem 'github-pages', group: :jekyll_plugins
 gem 'jekyll-sitemap'
 gem 'jekyll-feed'
 gem 'minima'
+gem 'jekyll'
+gem 'jekyll-seo-tag'
