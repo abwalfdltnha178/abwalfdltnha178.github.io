@@ -1,0 +1,33 @@
+title: ابوالفضل تنها | بلاگ
+email: your-email@example.com
+description: > 
+  یک وبلاگ درباره چیزهای فوق‌العاده.
+baseurl: ""  # مسیر پایه است اگر در ریشه است خالی بماند.
+url: "https://abwalfdltnha178.github.io"
+
+# فارسی سازی
+lang: "fa-IR"
+dir: "rtl"
+
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# تنظیمات پیوند دائمی
+permalink: /:title/
+
+# تنظیمات نویسنده
+author:
+  name: ابوالفضل تنها
+  email: abwalfdltnha178@gmail.com
+
+# تنظیمات اجتماعی
+social:
+  twitter: abwalfdltnha178
+  github: abwalfdltnha178
+  linkedin: abwalfdltnha178
+
+# فعال کردن build افزایشی
+incremental: true
