@@ -16,7 +16,7 @@ plugins:
   - jekyll-sitemap
 
 # تنظیمات پیوند دائمی
-permalink: /:title/
+permalink: /:categories/:title/
 
 # تنظیمات نویسنده
 author:
