@@ -12,4 +12,4 @@ gem 'faraday-retry'
 # gem 'jekyll'
 
 # قالب Minima به صورت پیش‌فرض توسط github-pages پشتیبانی می‌شود، در صورت نیاز به نسخه خاص می‌توانید آن را مشخص کنید
-gem 'minima', '~> 2.5'
+gem 'minima'#, '~> 2.5'
