@@ -1,4 +1,4 @@
-title: ابوالفضل تنها 
+title: ابوالفضل تنها
 email: your-email@example.com
 description: > 
   یک وبلاگ درباره چیزهای فوق‌العاده.
@@ -29,6 +29,10 @@ social:
   twitter: abwalfdltnha178
   github: abwalfdltnha178
   linkedin: abwalfdltnha178
+
+# تنظیمات Twitter Card
+twitter:
+  username: "abwalfdltnha178"
 
 # فعال کردن build افزایشی
 incremental: true
