@@ -1,5 +1,5 @@
 title: ابوالفضل تنها
-email: your-email@example.com
+email: abwalfdltnha178@gmail.com
 description: > 
   یک وبلاگ درباره چیزهای فوق‌العاده.
 baseurl: ""  # مسیر پایه است اگر در ریشه است خالی بماند.
@@ -9,12 +9,17 @@ url: "https://abwalfdltnha178.github.io"
 lang: "fa-IR"
 dir: "rtl"
 
+# مشخص کردن برجسته‌ساز
+highlighter: rouge
+
+# تنظیمات Markdown
 markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-syntax # برای استفاده از هایلایت کردن کدها
 
 # تنظیمات پیوند دائمی
 permalink: /:categories/:title/
