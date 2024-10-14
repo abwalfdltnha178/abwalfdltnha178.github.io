@@ -1,5 +1,5 @@
  /* Global styles */
-html,body{with:100%;height:100%;}
+html,body{width:100%;height:100%;}
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -43,7 +43,7 @@ main {
 }
 
 /* images style */
-img,code,pre {with:100%}
+img {width:100%}
 
 /* Footer styles */
 footer {
@@ -53,4 +53,15 @@ footer {
     padding: 10px 0;
     bottom: 0;
     width: 100%;
+}
+/* اصلاح*/
+html,body{width:100%;height:100%;}
+code,pre {width:100%;overflow:scroll;background:#667dc31a;}
+pre {height:50px;}
+code {position:relative;top:12px;}
+@media (prefers-color-scheme : dark) {
+body{background:black;color:white;}
+a{color:#667dc3;}
+img{opacity:.75;}
+::selection{background:#667dc3b1;color:black;}
 }
