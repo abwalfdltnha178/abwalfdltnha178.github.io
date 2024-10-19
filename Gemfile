@@ -17,3 +17,7 @@ gem 'minima'#, '~> 2.5'
 #برجسته سازی کد 
 gem "rouge"
 gem "jekyll-syntax"
+
+#چند زبانه سازی
+gem "jekyll-multiple-languages-plugin"
+ 
