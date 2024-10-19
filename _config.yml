@@ -1,9 +1,15 @@
 title: ابوالفضل تنها
 email: abwalfdltnha178@gmail.com
-description: > 
+description: >
   یک وبلاگ درباره چیزهای فوق‌العاده.
 baseurl: ""  # مسیر پایه است اگر در ریشه است خالی بماند.
 url: "https://abwalfdltnha178.github.io"
+
+# تنظیمات چند زبانه
+languages:
+  - en
+  - fa
+default_lang: fa
 
 # فارسی سازی
 lang: "fa-IR"
@@ -20,9 +26,10 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-syntax # برای استفاده از هایلایت کردن کدها
+  - jekyll-multiple-languages-plugin # افزونه چند زبانه
 
 # تنظیمات پیوند دائمی
-permalink: /:categories/:title/
+permalink: /:lang/:categories/:title/
 
 # تنظیمات نویسنده
 author:
@@ -41,3 +48,23 @@ twitter:
 
 # فعال کردن build افزایشی
 incremental: true
+
+# تنظیمات پیش‌فرض بر اساس زبان
+defaults:
+  - scope:
+      path: "_posts/en"
+    values:
+      lang: "en"
+      permalink: "/en/:categories/:title/"
+  - scope:
+      path: "_posts/fa"
+    values:
+      lang: "fa"
+      permalink: "/fa/:categories/:title/"
+      
+# استثناها از ترجمه
+exclude_from_localizations:
+  - assets
+  - images
+  - js
+  - css
