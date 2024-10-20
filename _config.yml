@@ -26,6 +26,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-syntax # برای استفاده از هایلایت کردن کدها
+  - rouge #برجسته سازی کد
   - jekyll-multiple-languages-plugin # افزونه چند زبانه
 
 # تنظیمات پیوند دائمی
