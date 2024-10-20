@@ -20,13 +20,21 @@ highlighter: rouge
 
 # تنظیمات Markdown
 markdown: kramdown
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block: true
+
+# تنظیمات قالب
 theme: minima
+
+# افزونه‌ها
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
-  - jekyll-syntax # برای استفاده از هایلایت کردن کدها
-  - rouge #برجسته سازی کد
   - jekyll-multiple-languages-plugin # افزونه چند زبانه
 
 # تنظیمات پیوند دائمی
@@ -62,7 +70,7 @@ defaults:
     values:
       lang: "fa"
       permalink: "/fa/:categories/:title/"
-      
+
 # استثناها از ترجمه
 exclude_from_localizations:
   - assets
