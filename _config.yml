@@ -15,8 +15,7 @@ default_lang: fa
 lang: "fa-IR"
 dir: "rtl"
 
-# مشخص کردن برجسته‌ساز
-highlighter: rouge
+
 
 # تنظیمات Markdown
 markdown: kramdown
@@ -24,8 +23,9 @@ markdown: kramdown
 kramdown:
   input: GFM
   syntax_highlighter: rouge
-  syntax_highlighter_opts:
- #   block: true
+
+# مشخص کردن برجسته‌ساز
+highlighter: rouge
 
 # تنظیمات قالب
 theme: minima
