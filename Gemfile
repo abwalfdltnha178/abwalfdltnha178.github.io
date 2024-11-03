@@ -21,3 +21,5 @@ gem "jekyll-syntax"
 #چند زبانه سازی
 gem "jekyll-multiple-languages-plugin"
  
+#آلگولیا موتور جستجو
+gem "algolia" , '~> 4.0'
