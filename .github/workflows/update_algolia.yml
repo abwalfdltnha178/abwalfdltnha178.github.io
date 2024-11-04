@@ -1,0 +1,47 @@
+name: Update Algolia Index
+
+on:
+  push:
+    branches:
+      - main  # هر بار که به شاخه main پوش می‌کنید اجرا می‌شود
+  workflow_dispatch:  # قابلیت اجرای دستی اکشن
+
+jobs:
+  update-algolia:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'  # نسخه Ruby
+
+      - name: Install dependencies
+        run: |
+          gem install algolia
+          gem install json
+
+      - name: Update Algolia Index
+        env:
+          ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
+          ALGOLIA_ADMIN_API_KEY: ${{ secrets.ALGOLIA_ADMIN_API_KEY }}
+          ALGOLIA_INDEX_NAME: ${{ secrets.ALGOLIA_INDEX_NAME }}
+        run: |
+          require 'json'
+          require 'algolia'
+
+          # خواندن فایل داده‌ها
+          data = JSON.parse(File.read('data.json'))  # جایگزین با مسیر فایل JSON خود
+
+          # اتصال به Algolia
+          client = Algolia::Search::Client.create(ENV['ALGOLIA_APP_ID'], ENV['ALGOLIA_ADMIN_API_KEY'])
+          index = client.init_index(ENV['ALGOLIA_INDEX_NAME'])
+
+          # ارسال داده‌ها به Algolia
+          index.save_objects(data, { autoGenerateObjectIDIfNotExist: true })
+
+          puts "Data successfully updated in Algolia index!"
+          
