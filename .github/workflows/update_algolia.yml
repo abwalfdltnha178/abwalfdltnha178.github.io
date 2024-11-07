@@ -23,8 +23,9 @@ jobs:
         run: |
           gem install algolia
           gem install json
+          gem install kramdown  # برای تبدیل Markdown به JSON در صورت نیاز
 
-      - name: Update Algolia Index
+      - name: Convert Markdown to JSON and Update Algolia
         env:
           ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
           ALGOLIA_ADMIN_API_KEY: ${{ secrets.ALGOLIA_ADMIN_API_KEY }}
@@ -33,9 +34,20 @@ jobs:
           ruby -e "
           require 'json'
           require 'algolia'
+          require 'kramdown'
 
-          # خواندن فایل داده‌ها
-          data = JSON.parse(File.read('data.json'))  # جایگزین با مسیر فایل JSON خود
+          # پوشه‌ای که فایل‌های Markdown در آن قرار دارند
+          markdown_files = Dir.glob('_posts/{fa,en,logo}/*.md' )
+
+          # تبدیل محتوای Markdown به JSON
+          data = markdown_files.map do |file|
+            content = File.read(file)
+            {
+              'objectID' => File.basename(file, '.md'),
+              'title' => content[/^# (.*)$/, 1],  # فرض می‌کنیم عنوان در خط اول است
+              'content' => Kramdown::Document.new(content).to_html  # محتوای تبدیل‌شده به HTML
+            }
+          end
 
           # اتصال به Algolia
           client = Algolia::Search::Client.create(ENV['ALGOLIA_APP_ID'], ENV['ALGOLIA_ADMIN_API_KEY'])
