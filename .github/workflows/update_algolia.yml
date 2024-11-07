@@ -24,25 +24,25 @@ jobs:
           gem install algolia
           gem install json
 
-- name: Update Algolia Index
-  env:
-    ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
-    ALGOLIA_ADMIN_API_KEY: ${{ secrets.ALGOLIA_ADMIN_API_KEY }}
-    ALGOLIA_INDEX_NAME: ${{ secrets.ALGOLIA_INDEX_NAME }}
-  run: |
-    ruby -e "
-    require 'json'
-    require 'algolia'
+      - name: Update Algolia Index
+        env:
+          ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
+          ALGOLIA_ADMIN_API_KEY: ${{ secrets.ALGOLIA_ADMIN_API_KEY }}
+          ALGOLIA_INDEX_NAME: ${{ secrets.ALGOLIA_INDEX_NAME }}
+        run: |
+          ruby -e "
+          require 'json'
+          require 'algolia'
 
-    # خواندن فایل داده‌ها
-    data = JSON.parse(File.read('data.json'))  # جایگزین با مسیر فایل JSON خود
+          # خواندن فایل داده‌ها
+          data = JSON.parse(File.read('data.json'))  # جایگزین با مسیر فایل JSON خود
 
-    # اتصال به Algolia
-    client = Algolia::Search::Client.create(ENV['ALGOLIA_APP_ID'], ENV['ALGOLIA_ADMIN_API_KEY'])
-    index = client.init_index(ENV['ALGOLIA_INDEX_NAME'])
+          # اتصال به Algolia
+          client = Algolia::Search::Client.create(ENV['ALGOLIA_APP_ID'], ENV['ALGOLIA_ADMIN_API_KEY'])
+          index = client.init_index(ENV['ALGOLIA_INDEX_NAME'])
 
-    # ارسال داده‌ها به Algolia
-    index.save_objects(data, { autoGenerateObjectIDIfNotExist: true })
+          # ارسال داده‌ها به Algolia
+          index.save_objects(data, { autoGenerateObjectIDIfNotExist: true })
 
-    puts 'Data successfully updated in Algolia index!'
-    "
+          puts 'Data successfully updated in Algolia index!'
+          "
