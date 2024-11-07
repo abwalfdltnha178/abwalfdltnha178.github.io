@@ -3,7 +3,7 @@ name: Update Algolia Index
 on:
   push:
     branches:
-      - main  # هر بار که به شاخه main پوش می‌کنید اجرا می‌شود
+      - main  # اجرا هنگام هر بار پوش به شاخه main
   workflow_dispatch:  # قابلیت اجرای دستی اکشن
 
 jobs:
@@ -19,11 +19,11 @@ jobs:
         with:
           ruby-version: '3.0'  # نسخه Ruby
 
-      - name: Install Algolia dependency
-  run: |
-    gem install algolia -v '1.27.5'  # نسخه قدیمی‌تر
-    gem install json
-    gem install kramdown
+      - name: Install dependencies
+        run: |
+          gem install algolia -v '3.7.1'
+          gem install json
+          gem install kramdown
 
       - name: Convert Markdown to JSON and Update Algolia
         env:
@@ -36,21 +36,23 @@ jobs:
           require 'algolia'
           require 'kramdown'
 
-          # پوشه‌ای که فایل‌های Markdown در آن قرار دارند
-          markdown_files = Dir.glob('_posts/{fa,en,logo}/*.md' )
-
-          # تبدیل محتوای Markdown به JSON
-          data = markdown_files.map do |file|
-            content = File.read(file)
+          # تابع برای تبدیل فایل‌های مارک‌داون به JSON
+          def markdown_to_json(file_path)
+            content = File.read(file_path)
+            html = Kramdown::Document.new(content).to_html
             {
-              'objectID' => File.basename(file, '.md'),
-              'title' => content[/^# (.*)$/, 1],  # فرض می‌کنیم عنوان در خط اول است
-              'content' => Kramdown::Document.new(content).to_html  # محتوای تبدیل‌شده به HTML
+              title: content[/^# (.+)$/, 1],
+              content: html,
+              path: file_path
             }
           end
 
+          # جستجوی فایل‌های مارک‌داون
+          markdown_files = Dir.glob('_posts/fa/*.md') + Dir.glob('_posts/en/*.md')
+          data = markdown_files.map { |file| markdown_to_json(file) }
+
           # اتصال به Algolia
-          client = Algolia::Client.create(ENV['ALGOLIA_APP_ID'], ENV['ALGOLIA_ADMIN_API_KEY'])
+          client = Algolia::Client.new(application_id: ENV['ALGOLIA_APP_ID'], api_key: ENV['ALGOLIA_ADMIN_API_KEY'])
           index = client.init_index(ENV['ALGOLIA_INDEX_NAME'])
 
           # ارسال داده‌ها به Algolia
