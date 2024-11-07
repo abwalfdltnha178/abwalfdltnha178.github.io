@@ -21,7 +21,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          gem install algolia
+          gem install algolia -v '1.27.5'  # نسخه قدیمی‌تر 
           gem install json
           gem install kramdown  # برای تبدیل Markdown به JSON در صورت نیاز
 
