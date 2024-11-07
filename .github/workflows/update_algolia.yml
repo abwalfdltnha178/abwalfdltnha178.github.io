@@ -50,7 +50,7 @@ jobs:
           end
 
           # اتصال به Algolia
-          client = Algolia::Search::Client.create(ENV['ALGOLIA_APP_ID'], ENV['ALGOLIA_ADMIN_API_KEY'])
+          client = Algolia::Client.create(ENV['ALGOLIA_APP_ID'], ENV['ALGOLIA_ADMIN_API_KEY'])
           index = client.init_index(ENV['ALGOLIA_INDEX_NAME'])
 
           # ارسال داده‌ها به Algolia
