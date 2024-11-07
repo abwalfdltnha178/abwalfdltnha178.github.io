@@ -3,8 +3,8 @@ name: Update Algolia Index
 on:
   push:
     branches:
-      - main  # اجرا هنگام هر بار پوش به شاخه main
-  workflow_dispatch:  # قابلیت اجرای دستی اکشن
+      - main
+  workflow_dispatch:
 
 jobs:
   update-algolia:
@@ -12,16 +12,17 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0'  # نسخه Ruby
+          ruby-version: '3.0'
+          bundler-cache: true
 
       - name: Install dependencies
         run: |
-          gem install algolia -v '3.7.1'
+          gem install algolia -v 3.7.1
           gem install json
           gem install kramdown
 
@@ -36,26 +37,27 @@ jobs:
           require 'algolia'
           require 'kramdown'
 
-          # تابع برای تبدیل فایل‌های مارک‌داون به JSON
           def markdown_to_json(file_path)
             content = File.read(file_path)
+            title = content.lines.first.chomp.sub(/^#+\s*/, '') unless content.empty?
             html = Kramdown::Document.new(content).to_html
             {
-              title: content[/^# (.+)$/, 1],
+              title: title,
               content: html,
-              path: file_path
+              path: file_path,
+              language: file_path.include?('/fa/') ? 'fa' : 'en'
             }
           end
 
-          # جستجوی فایل‌های مارک‌داون
           markdown_files = Dir.glob('_posts/fa/*.md') + Dir.glob('_posts/en/*.md')
-          data = markdown_files.map { |file| markdown_to_json(file) }
+          data = markdown_files.map { |file| markdown_to_json(file) }.compact
 
-          # اتصال به Algolia
-          client = Algolia::Client.new(application_id: ENV['ALGOLIA_APP_ID'], api_key: ENV['ALGOLIA_ADMIN_API_KEY'])
+          client = Algolia::Client.new(
+            application_id: ENV['ALGOLIA_APP_ID'],
+            api_key: ENV['ALGOLIA_ADMIN_API_KEY']
+          )
           index = client.init_index(ENV['ALGOLIA_INDEX_NAME'])
 
-          # ارسال داده‌ها به Algolia
           index.save_objects(data, { autoGenerateObjectIDIfNotExist: true })
 
           puts 'Data successfully updated in Algolia index!'
