@@ -1,64 +1,23 @@
-name: Update Algolia Index
-
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-
 jobs:
-  update-algolia:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0'
-          bundler-cache: true
+          ruby-version: 3.0
 
       - name: Install dependencies
-        run: |
-          gem install algolia -v 3.7.1
-          gem install json
-          gem install kramdown
+        run: bundle install
 
-      - name: Convert Markdown to JSON and Update Algolia
+      - name: Build Jekyll site and update Algolia
         env:
-          ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
-          ALGOLIA_ADMIN_API_KEY: ${{ secrets.ALGOLIA_ADMIN_API_KEY }}
+          ALGOLIA_APPLICATION_ID: ${{ secrets.ALGOLIA_APPLICATION_ID }}
+          ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
           ALGOLIA_INDEX_NAME: ${{ secrets.ALGOLIA_INDEX_NAME }}
-        run: |
-          ruby -e "
-          require 'json'
-          require 'algolia'
-          require 'kramdown'
-
-          def markdown_to_json(file_path)
-            content = File.read(file_path)
-            title = content.lines.first.chomp.sub(/^#+\s*/, '') unless content.empty?
-            html = Kramdown::Document.new(content).to_html
-            {
-              title: title,
-              content: html,
-              path: file_path,
-              language: file_path.include?('/fa/') ? 'fa' : 'en'
-            }
-          end
-
-          markdown_files = Dir.glob('_posts/fa/*.md') + Dir.glob('_posts/en/*.md')
-          data = markdown_files.map { |file| markdown_to_json(file) }.compact
-
-          client = Algolia::Client.new(
-            application_id: ENV['ALGOLIA_APP_ID'],
-            api_key: ENV['ALGOLIA_ADMIN_API_KEY']
-          )
-          index = client.init_index(ENV['ALGOLIA_INDEX_NAME'])
-
-          index.save_objects(data, { autoGenerateObjectIDIfNotExist: true })
-
-          puts 'Data successfully updated in Algolia index!'
-          "
+        run: bundle exec jekyll algolia
+        
