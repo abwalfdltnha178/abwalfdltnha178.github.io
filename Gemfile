@@ -18,7 +18,7 @@ gem 'rouge'
 gem 'jekyll-multiple-languages-plugin'
 
 # آلگولیا موتور جستجو
-gem 'algolia', '~> 3.7.1'
+gem 'algoliasearch'
 
 # مبدل Markdown
 gem 'kramdown'
