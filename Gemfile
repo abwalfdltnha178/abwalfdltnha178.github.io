@@ -19,3 +19,7 @@ gem 'jekyll-multiple-languages-plugin'
 
 # آلگولیا موتور جستجو
 gem 'algolia', '~> 3.7.1'
+
+# مبدل Markdown
+gem 'kramdown'
+gem 'kramdown-parser-gfm'
