@@ -18,6 +18,7 @@ gem 'rouge'
 gem 'jekyll-multiple-languages-plugin'
 
 # مبدل Markdown
+gem 'kramdown'
 gem 'kramdown-parser-gfm'
 
 # آلگولیا موتور جستجو
