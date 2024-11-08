@@ -1,3 +1,18 @@
+name: Update Algolia Index
+
+on:
+  # این Action هنگام push به شاخه main اجرا می‌شود.
+  push:
+    branches:
+      - main
+
+  # این Action به صورت زمان‌بندی‌شده روزانه اجرا می‌شود.
+  schedule:
+    - cron: '0 0 * * *' # هر روز ساعت 00:00 UTC
+
+  # این Action به صورت دستی نیز می‌تواند اجرا شود.
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,7 +27,9 @@ jobs:
           ruby-version: 3.0
 
       - name: Install dependencies
-        run: bundle install
+        run: |
+          gem install bundler
+          bundle install
 
       - name: Build Jekyll site and update Algolia
         env:
