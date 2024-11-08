@@ -28,7 +28,13 @@ jobs:
           gem install bundler
           bundle install --jobs 4 --retry 3
 
-      # گام 4: تبدیل Markdown به JSON و ارسال به Algolia
+      # گام 4: بررسی کتابخانه‌های نصب‌شده (برای اطمینان از نصب صحیح)
+      - name: Check installed gems
+        run: |
+          bundle list
+          gem list
+
+      # گام 5: تبدیل Markdown به JSON و ارسال به Algolia
       - name: Convert Markdown to JSON and Update Algolia
         env:
           ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
