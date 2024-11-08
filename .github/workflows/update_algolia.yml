@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: |
           gem install bundler
-         gem install kramdown
+          gem install kramdown
           bundle install --jobs 4 --retry 3
 
       # گام 4: تبدیل Markdown به JSON و ارسال به Algolia
