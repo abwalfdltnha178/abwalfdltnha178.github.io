@@ -17,9 +17,9 @@ gem 'rouge'
 # چند زبانه سازی
 gem 'jekyll-multiple-languages-plugin'
 
+# مبدل Markdown
+gem 'kramdown-parser-gfm'
+
 # آلگولیا موتور جستجو
 gem 'algoliasearch'
 
-# مبدل Markdown
-gem 'kramdown'
-gem 'kramdown-parser-gfm'
