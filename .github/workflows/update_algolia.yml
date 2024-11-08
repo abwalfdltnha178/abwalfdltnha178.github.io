@@ -1,40 +1,66 @@
 name: Update Algolia Index
 
 on:
-  # این Action هنگام push به شاخه main اجرا می‌شود.
   push:
     branches:
       - main
-
-  # این Action به صورت زمان‌بندی‌شده روزانه اجرا می‌شود.
-  schedule:
-    - cron: '0 0 * * *' # هر روز ساعت 00:00 UTC
-
-  # این Action به صورت دستی نیز می‌تواند اجرا شود.
   workflow_dispatch:
 
 jobs:
-  build:
+  update-algolia:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      # گام 1: کلون کردن مخزن
+      - name: Checkout repository
         uses: actions/checkout@v3
 
+      # گام 2: نصب Ruby و وابستگی‌ها
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.0
+          ruby-version: '3.2'
+          bundler-cache: true
 
+      # گام 3: نصب وابستگی‌ها
       - name: Install dependencies
         run: |
           gem install bundler
-          bundle install
+          bundle install --jobs 4 --retry 3
 
-      - name: Build Jekyll site and update Algolia
+      # گام 4: تبدیل Markdown به JSON و ارسال به Algolia
+      - name: Convert Markdown to JSON and Update Algolia
         env:
-          ALGOLIA_APPLICATION_ID: ${{ secrets.ALGOLIA_APPLICATION_ID }}
-          ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
+          ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
+          ALGOLIA_ADMIN_API_KEY: ${{ secrets.ALGOLIA_ADMIN_API_KEY }}
           ALGOLIA_INDEX_NAME: ${{ secrets.ALGOLIA_INDEX_NAME }}
-        run: bundle exec jekyll algolia
-        
+        run: |
+          mkdir -p data
+          ruby -e "
+            require 'json'
+            require 'kramdown'
+            require 'algolia'
+
+            # اتصال به آلگولیا
+            client = Algolia::Search::Client.create(ENV['ALGOLIA_APP_ID'], ENV['ALGOLIA_ADMIN_API_KEY'])
+            index = client.init_index(ENV['ALGOLIA_INDEX_NAME'])
+
+            # خواندن فایل‌های Markdown از پوشه‌های _posts/fa و _posts/en
+            markdown_files = Dir.glob('_posts/{fa,en}/*.md')
+            data = markdown_files.map do |file|
+              content = File.read(file)
+              parsed_content = Kramdown::Document.new(content).to_html
+              {
+                objectID: File.basename(file, '.md'),
+                title: content[/title:\s*(.+)/i, 1],
+                lang: file.include?('/fa/') ? 'fa' : 'en',
+                date: content[/date:\s*(.+)/i, 1],
+                categories: content[/categories:\s*(.+)/i, 1]&.split,
+                content: parsed_content
+              }
+            end
+
+            # ارسال داده‌ها به آلگولیا
+            index.save_objects(data, { autoGenerateObjectIDIfNotExist: true })
+            puts '✅ Data successfully updated in Algolia index!'
+          "
