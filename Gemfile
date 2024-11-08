@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
+# استفاده از GitHub Pages و مدیریت جکیل توسط آن
 gem 'github-pages', group: :jekyll_plugins
 
-# Add the plugins you want to use
+# پلاگین‌های اضافی که می‌خواهید استفاده کنید
 gem 'jekyll-sitemap'
 gem 'jekyll-feed'
 gem 'jekyll-seo-tag'
@@ -11,15 +12,18 @@ gem 'faraday-retry'
 # نیازی به افزودن Jekyll به صورت دستی نیست زیرا github-pages آن را مدیریت می‌کند
 # gem 'jekyll'
 
-# قالب Minima به صورت پیش‌فرض توسط github-pages پشتیبانی می‌شود، در صورت نیاز به نسخه خاص می‌توانید آن را مشخص کنید
-gem 'minima'#, '~> 2.5'
+# قالب Minima (پیش‌فرض توسط github-pages پشتیبانی می‌شود)
+gem 'minima'
 
-#برجسته سازی کد 
-gem "rouge"
-gem "jekyll-syntax"
+# برجسته‌سازی کدها
+gem 'rouge'
+gem 'jekyll-syntax'
 
-#چند زبانه سازی
-gem "jekyll-multiple-languages-plugin"
- 
-#آلگولیا موتور جستجو
-gem "algolia" , '~> 4.0'
+# چند زبانه‌سازی
+gem 'jekyll-multiple-languages-plugin'
+
+# آلگولیا برای جستجو
+gem 'jekyll-algolia', '~> 1.7.0'
+
+# رفع مشکل با Faraday نسخه‌های جدید (در صورت نیاز)
+gem 'faraday', '~> 2.0'
