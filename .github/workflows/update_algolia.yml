@@ -41,11 +41,9 @@ jobs:
             require 'kramdown'
             require 'algolia'
 
-            # اتصال به آلگولیا
             client = Algolia::Search::Client.create(ENV['ALGOLIA_APP_ID'], ENV['ALGOLIA_ADMIN_API_KEY'])
             index = client.init_index(ENV['ALGOLIA_INDEX_NAME'])
 
-            # خواندن فایل‌های Markdown از پوشه‌های _posts/fa و _posts/en
             markdown_files = Dir.glob('_posts/{fa,en}/*.md')
             data = markdown_files.map do |file|
               content = File.read(file)
@@ -60,7 +58,6 @@ jobs:
               }
             end
 
-            # ارسال داده‌ها به آلگولیا
             index.save_objects(data, { autoGenerateObjectIDIfNotExist: true })
             puts '✅ Data successfully updated in Algolia index!'
           "
