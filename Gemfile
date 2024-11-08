@@ -18,4 +18,4 @@ gem 'rouge'
 gem 'jekyll-multiple-languages-plugin'
 
 # آلگولیا موتور جستجو
-gem 'algolia', '~> 4.0'
+gem 'algolia', '~> 3.7.1'
