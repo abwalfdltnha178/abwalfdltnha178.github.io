@@ -38,7 +38,7 @@ jobs:
           mkdir -p data
           ruby -e "
             require 'json'
-            require 'kramdown/parser/gfm'
+            require 'kramdown'
             require 'algoliasearch'
 
             # تنظیمات اتصال به Algolia
