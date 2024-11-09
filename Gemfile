@@ -22,5 +22,4 @@ gem 'kramdown'
 gem 'kramdown-parser-gfm'
 
 # آلگولیا موتور جستجو
-gem 'algoliasearch'
-
+gem 'algoliasearch', '~> 3.7.1'
