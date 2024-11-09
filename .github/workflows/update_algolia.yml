@@ -11,30 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # گام 1: کلون کردن مخزن
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # گام 2: نصب Ruby و وابستگی‌ها
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
           bundler-cache: true
 
-      # گام 3: نصب وابستگی‌ها
       - name: Install dependencies
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3
 
-      # گام 4: بررسی کتابخانه‌های نصب‌شده (برای اطمینان از نصب صحیح)
-      - name: Check installed gems
-        run: |
-          bundle list
-          gem list
-
-      # گام 5: تبدیل Markdown به JSON و ارسال به Algolia
       - name: Convert Markdown to JSON and Update Algolia
         env:
           ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
@@ -47,9 +37,9 @@ jobs:
             require 'kramdown'
             require 'algoliasearch'
 
-            # تنظیمات اتصال به Algolia
-            client = Algolia::Search::Client.create(ENV['ALGOLIA_APP_ID'], ENV['ALGOLIA_ADMIN_API_KEY'])
-            index = client.init_index(ENV['ALGOLIA_INDEX_NAME'])
+            # تنظیمات اتصال به Algolia با استفاده از نسخه 1.x
+            Algolia.init(application_id: ENV['ALGOLIA_APP_ID'], api_key: ENV['ALGOLIA_ADMIN_API_KEY'])
+            index = Algolia::Index.new(ENV['ALGOLIA_INDEX_NAME'])
 
             # خواندن فایل‌های Markdown
             markdown_files = Dir.glob('_posts/{fa,en}/*.md')
@@ -67,6 +57,6 @@ jobs:
             end
 
             # ارسال داده‌ها به Algolia
-            index.save_objects(data, { autoGenerateObjectIDIfNotExist: true })
+            index.add_objects(data)
             puts '✅ Data successfully updated in Algolia index!'
           "
