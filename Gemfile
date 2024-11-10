@@ -23,3 +23,4 @@ gem 'kramdown-parser-gfm'
 
 # آلگولیا موتور جستجو
 gem 'algoliasearch', '~> 1.27.5'
+gem 'jekyll-algolia', '~> 1.7'
