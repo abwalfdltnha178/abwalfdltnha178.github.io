@@ -1,6 +1,11 @@
 {
+  "name": "algolia-search",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "jekyll build"
+  },
   "dependencies": {
-    "algoliasearch": "^5.13.0",
+    "algoliasearch": "^4.24.0",
     "instantsearch.js": "^4.75.4"
   }
 }
