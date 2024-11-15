@@ -1,7 +1,7 @@
-const searchClient = algoliasearch('YOUR_APP_ID', 'YOUR_SEARCH_API_KEY');
+const searchClient = algoliasearch('N9TTQ38R4A', 'b6ac49385375e4237691c249390227c6');
   
   const search = instantsearch({
-    indexName: 'YOUR_INDEX_NAME',
+    indexName: 'My First Application',
     searchClient,
   });
 
