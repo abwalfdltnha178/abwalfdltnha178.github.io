@@ -63,3 +63,29 @@ a{color:#667dc3;}
 img{opacity:.75;}
 ::selection{background:#667dc3b1;color:black;}
 }
+/*جستجو*/
+.ais-SearchBox {
+  margin-bottom: 1em;
+}
+
+.ais-InstantSearch {
+  max-width: 960px;
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  margin: 0 auto;
+  font-family: sans-serif;
+}
+
+.ais-Hits-item {
+  margin-left: 0;
+  width: 100%;
+}
+
+.ais-Hits-item img {
+  margin-right: 1em
+}
+
+.ais-Hits-list {
+  margin-bottom: 1em;
+}
