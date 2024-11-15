@@ -32,8 +32,13 @@
 </script>
 
   <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
-<script src="{{ "/assets/js/search.js" | relative_url }}"></script>
+<script>
 
+import search from "./assets/js/search.js";
+import 'instantsearch.css/themes/satellite.css';
+
+search.start();
+</script>
 <!-- Algolia Search Library -->
 <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4"></script>
 <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
