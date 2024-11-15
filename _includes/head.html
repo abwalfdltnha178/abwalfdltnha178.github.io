@@ -32,18 +32,20 @@
 </script>
 
   <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
-<script>
-
-import search from "./assets/js/search.js";
-import 'instantsearch.css/themes/satellite.css';
-
-search.start();
-</script>
-<!-- Algolia Search Library -->
-<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4"></script>
-<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/dark.min.css" media="(prefers-color-scheme: dark)" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/default.min.css" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
+
+<!-- Algolia Search Library -->
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.24.0/dist/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.75.5/dist/instantsearch.production.min.js" integrity="sha256-Ge9l2WgQoXm9fEH5EX/9oXKOjZVrpOwrMK7vAF2oWKg=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.5.1/themes/reset-min.css" integrity="sha256-KvFgFCzgqSErAPu6y9gz/AhZAvzK48VJASu3DpNLCEQ=" crossorigin="anonymous">
+<script>
+import search from "./assets/js/search.js";
+import 'instantsearch.css/themes/satellite.css';
+
+search.start();
+</script>
+
