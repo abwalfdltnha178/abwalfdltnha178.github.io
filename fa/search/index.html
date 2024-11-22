@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>جستجو</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.5.1/themes/satellite-min.css">
+</head>
+<body>
+  <div class="ais-InstantSearch">
+    <div id="searchbox"></div>
+    <div id="hits"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.20.2/dist/algoliasearch-lite.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.49.0/dist/instantsearch.production.min.js"></script>
+  <script>
+    const searchClient = algoliasearch('YOUR_APP_ID', 'YOUR_SEARCH_API_KEY');
+    const search = instantsearch({
+      indexName: 'your_index_name',
+      searchClient,
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get('q');
+
+    search.addWidgets([
+      instantsearch.widgets.searchBox({
+        container: '#searchbox',
+        placeholder: 'جستجو...',
+        query,
+      }),
+      instantsearch.widgets.hits({
+        container: '#hits',
+        templates: {
+          item(hit) {
+            return `
+              <div>
+                <h2>${hit.title}</h2>
+                <p>${hit.content}</p>
+              </div>
+            `;
+          }
+        }
+      })
+    ]);
+
+    search.start();
+  </script>
+</body>
+</html>
+ 
