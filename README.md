@@ -1,5 +1,5 @@
 # abwalfdltnha178.github.io
-![گل رز آبی در فصل بهار ](http://abwalfdltnha178.github.io/OIG.jpeg)
+![گل رز آبی در فصل بهار ](/OIG.jpeg)
 >این تصویر با هوش مصنوعی ساخته شده است. [بیشتر بدانید...](https://abwalfdltnha178.github.io/ساخت-تصاویر-با-سایت-بینگ)
 >
 
