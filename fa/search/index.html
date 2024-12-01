@@ -2,7 +2,7 @@
 <html dir="rtl" lang="fa">
 <head>
   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>جستجو</title>
   <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.5.1/themes/satellite-min.css">
@@ -16,52 +16,60 @@
   <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.24.0/dist/algoliasearch-lite.umd.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.49.0/dist/instantsearch.production.min.js"></script>
   <script>
+    // اتصال به Algolia
     const searchClient = algoliasearch('N9TTQ38R4A', 'b6ac49385375e4237691c249390227c6');
+    
+    // دریافت مقدار `q` از URL
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("q") || ""; // اگر `q` وجود نداشت، مقدار پیش‌فرض خالی قرار می‌گیرد
+
+    // تنظیمات InstantSearch
     const search = instantsearch({
       indexName: 'My First Application',
       searchClient,
+      initialUiState: {
+        'My First Application': { // نام ایندکس
+          query: query, // مقدار اولیه برای جستجو
+        },
+      },
     });
 
-    // دریافت مقدار q از URL
-const params = new URLSearchParams(window.location.search);
-const query = params.get("q") || ""; // اگر q وجود نداشت، مقدار پیش‌فرض خالی قرار می‌گیرد
-    
+    // افزودن ویجت‌ها
     search.addWidgets([
       instantsearch.widgets.searchBox({
         container: '#searchbox',
         placeholder: 'جستجو...',
-        query:query, //مقدار جستجوی اولیه 
       }),
       instantsearch.widgets.configure({
-    hitsPerPage: 5, // تعداد نتایج در هر صفحه
-  }),
+        hitsPerPage: 5, // تعداد نتایج در هر صفحه
+      }),
       instantsearch.widgets.hits({
-  container: "#hits",
-  templates: {
-    item: (hit, { html, components }) => html`
-      <a href="${hit.permalink}" class="hit-item">
-        <div class="hit-content">
-          <div class="hit-image">
-            <img src="${hit.image}" alt="${hit.title}" />
-          </div>
-          <div class="hit-details">
-            <h2 class="hit-title">
-              ${components.Highlight({ hit, attribute: "title" })}
-            </h2>
-            <p class="hit-date">${hit.date}</p>
-            <div class="hit-excerpt">
-              ${components.Snippet({ hit, attribute: "content" })}
-            </div>
-          </div>
-        </div>
-      </a>
-    `,
-  },
-});
+        container: "#hits",
+        templates: {
+          item: (hit, { html, components }) => html`
+            <a href="${hit.permalink}" class="hit-item">
+              <div class="hit-content">
+                <div class="hit-image">
+                  <img src="${hit.image}" alt="${hit.title}" />
+                </div>
+                <div class="hit-details">
+                  <h2 class="hit-title">
+                    ${components.Highlight({ hit, attribute: "title" })}
+                  </h2>
+                  <p class="hit-date">${hit.date}</p>
+                  <div class="hit-excerpt">
+                    ${components.Snippet({ hit, attribute: "content" })}
+                  </div>
+                </div>
+              </div>
+            </a>
+          `,
+        },
+      }),
     ]);
 
+    // شروع جستجو
     search.start();
   </script>
 </body>
 </html>
- 
