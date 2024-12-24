@@ -36,8 +36,9 @@ jobs:
             require 'json'
             require 'kramdown'
             require 'algoliasearch'
+            require 'yaml'
 
-            # تنظیمات اتصال به Algolia با استفاده از نسخه 1.x
+            # تنظیمات اتصال به Algolia
             Algolia.init(application_id: ENV['ALGOLIA_APP_ID'], api_key: ENV['ALGOLIA_ADMIN_API_KEY'])
             index = Algolia::Index.new(ENV['ALGOLIA_INDEX_NAME'])
 
@@ -45,14 +46,18 @@ jobs:
             markdown_files = Dir.glob('_posts/{fa,en}/*.md')
             data = markdown_files.map do |file|
               content = File.read(file)
-              parsed_content = Kramdown::Document.new(content, input: 'GFM').to_html
+              front_matter = YAML.load_file(file)
+
+              # استخراج اطلاعات از front-matter
               {
                 objectID: File.basename(file, '.md'),
-                title: content[/title:\s*(.+)/i, 1],
+                title: front_matter['title'],
                 lang: file.include?('/fa/') ? 'fa' : 'en',
-                date: content[/date:\s*(.+)/i, 1],
-                categories: content[/categories:\s*(.+)/i, 1]&.split,
-                content: parsed_content
+                date: front_matter['date'],
+                categories: front_matter['categories'],
+                image: front_matter['image'], # مسیر تصویر کاور
+                permalink: \"/#{front_matter['lang']}/#{front_matter['categories'].join('/')}/#{File.basename(file, '.md')}/\",
+                content: Kramdown::Document.new(content).to_html
               }
             end
 
