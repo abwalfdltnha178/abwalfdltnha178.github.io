@@ -53,14 +53,17 @@ jobs:
               html_content = Kramdown::Document.new(content.split('---', 3).last.strip).to_html
               first_image = html_content.match(/<img\s+[^>]*src="([^"]+)"/)&.[](1)
               
+              categories_value = front_matter['categories']
+              categories_path = categories_value.is_a?(Array) ? categories_value.join('/') : categories_value
+              
               {
                 objectID: File.basename(file, '.md'),
                 title: front_matter['title'],
                 lang: file.include?('/fa/') ? 'fa' : 'en',
                 date: front_matter['date']&.to_s,
-                categories: front_matter['categories'],
+                categories: categories_value,
                 image: first_image,
-                 permalink: "/#{file.include?('/fa/') ? 'fa' : 'en'}/#{front_matter['categories']&.join('/')}/#{File.basename(file, '.md')}/",
+                permalink: "/#{file.include?('/fa/') ? 'fa' : 'en'}/#{categories_path}/#{File.basename(file, '.md')}/",
                 content: html_content
               }
             end
