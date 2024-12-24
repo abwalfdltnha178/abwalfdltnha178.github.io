@@ -49,15 +49,19 @@ jobs:
               front_matter_content = content.match(/---(.*?)---/m)[1]
               front_matter = YAML.load(front_matter_content)
 
+              # پردازش محتوای Markdown برای یافتن اولین تصویر
+              html_content = Kramdown::Document.new(content.split('---', 3).last.strip).to_html
+              first_image = html_content.match(/<img\s+[^>]
+
               {
                 objectID: File.basename(file, '.md'),
                 title: front_matter['title'],
                 lang: file.include?('/fa/') ? 'fa' : 'en',
                 date: front_matter['date']&.to_s, # تبدیل به رشته برای سازگاری
                 categories: front_matter['categories'],
-                image: front_matter['image'],
+                image: first_image, # اولین تصویر از محتوای HTML
                 permalink: \"/#{file.include?('/fa/') ? 'fa' : 'en'}/#{front_matter['categories'].join('/')}/#{File.basename(file, '.md')}/\",
-                content: Kramdown::Document.new(content.split('---', 3).last.strip).to_html # پردازش محتوای Markdown
+                content: html_content # پردازش کامل محتوای Markdown
               }
             end
 
