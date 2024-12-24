@@ -32,7 +32,7 @@ jobs:
           ALGOLIA_INDEX_NAME: ${{ secrets.ALGOLIA_INDEX_NAME }}
         run: |
           mkdir -p data
-          ruby << EOF
+          bundle exec ruby << EOF
             require 'json'
             require 'kramdown'
             require 'algoliasearch'
