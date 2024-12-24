@@ -32,7 +32,7 @@ jobs:
           ALGOLIA_INDEX_NAME: ${{ secrets.ALGOLIA_INDEX_NAME }}
         run: |
           mkdir -p data
-          bundle exec ruby -e "
+          ruby << EOF
             require 'json'
             require 'kramdown'
             require 'algoliasearch'
@@ -60,7 +60,7 @@ jobs:
                 date: front_matter['date']&.to_s, # تبدیل به رشته برای سازگاری
                 categories: front_matter['categories'],
                 image: first_image, # اولین تصویر از محتوای HTML
-                permalink: \"/#{file.include?('/fa/') ? 'fa' : 'en'}/#{front_matter['categories'].join('/')}/#{File.basename(file, '.md')}/\",
+                permalink: "/#{file.include?('/fa/') ? 'fa' : 'en'}/#{front_matter['categories'].join('/')}/#{File.basename(file, '.md')}/",
                 content: html_content # پردازش کامل محتوای Markdown
               }
             end
@@ -68,4 +68,4 @@ jobs:
             # ارسال داده‌ها به Algolia
             index.add_objects(data)
             puts '✅ Data successfully updated in Algolia index!'
-          "
+          EOF
