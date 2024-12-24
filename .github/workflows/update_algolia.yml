@@ -60,7 +60,7 @@ jobs:
                 date: front_matter['date']&.to_s,
                 categories: front_matter['categories'],
                 image: first_image,
-                permalink: "/#{file.include?('/fa/') ? 'fa' : 'en'}/#{front_matter['categories'].join('/')}/#{File.basename(file, '.md')}/",
+                 permalink: "/#{file.include?('/fa/') ? 'fa' : 'en'}/#{front_matter['categories']&.join('/')}/#{File.basename(file, '.md')}/",
                 content: html_content
               }
             end
