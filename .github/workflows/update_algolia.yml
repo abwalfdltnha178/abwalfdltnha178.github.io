@@ -51,8 +51,8 @@ jobs:
 
               # پردازش محتوای Markdown برای یافتن اولین تصویر
               html_content = Kramdown::Document.new(content.split('---', 3).last.strip).to_html
-              first_image = html_content.match(/<img\s+[^>]
-
+              first_image = html_content.match(/<img\s+[^>]*src="([^"]+)"/)&.[](1)
+              
               {
                 objectID: File.basename(file, '.md'),
                 title: front_matter['title'],
