@@ -46,18 +46,18 @@ jobs:
             markdown_files = Dir.glob('_posts/{fa,en}/*.md')
             data = markdown_files.map do |file|
               content = File.read(file)
-              front_matter = YAML.load_file(file)
+              # استفاده از safe_load برای جلوگیری از خطای بارگذاری کلاس
+              front_matter = YAML.safe_load(content, [Date, Time], aliases: true)
 
-              # استخراج اطلاعات از front-matter
               {
                 objectID: File.basename(file, '.md'),
                 title: front_matter['title'],
                 lang: file.include?('/fa/') ? 'fa' : 'en',
-                date: front_matter['date'],
+                date: front_matter['date']&.to_s, # تبدیل به رشته برای سازگاری
                 categories: front_matter['categories'],
-                image: front_matter['image'], # مسیر تصویر کاور
+                image: front_matter['image'],
                 permalink: \"/#{front_matter['lang']}/#{front_matter['categories'].join('/')}/#{File.basename(file, '.md')}/\",
-                content: Kramdown::Document.new(content).to_html
+                content: Kramdown::Document.new(content.split('---', 3).last.strip).to_html # پردازش محتوای Markdown
               }
             end
 
