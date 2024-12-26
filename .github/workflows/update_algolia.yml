@@ -42,6 +42,10 @@ jobs:
             Algolia.init(application_id: ENV['ALGOLIA_APP_ID'], api_key: ENV['ALGOLIA_ADMIN_API_KEY'])
             index = Algolia::Index.new(ENV['ALGOLIA_INDEX_NAME'])
 
+            # بارگذاری تنظیمات _config.yml
+            config = YAML.load_file('_config.yml')
+            default_permalink = config['permalink'] || "/:categories/:title/"
+            
             # خواندن فایل‌های Markdown
             markdown_files = Dir.glob('_posts/{fa,en}/*.md')
             data = markdown_files.map do |file|
@@ -53,9 +57,16 @@ jobs:
               html_content = Kramdown::Document.new(content.split('---', 3).last.strip).to_html
               first_image = html_content.match(/<img\s+[^>]*src="([^"]+)"/)&.[](1)
               
+              file_name = File.basename(file, '.md').split('-', 3).last
               categories_value = front_matter['categories']
               categories_path = categories_value.is_a?(Array) ? categories_value.join('/') : categories_value
               
+              permalink = default_permalink.dup
+              permalink.gsub!(':categories', categories_path.to_s)
+              permalink.gsub!(':title', file_name.to_s)
+              permalink.gsub!(':lang', file.include?('/fa/') ? 'fa' : 'en')
+
+
               {
                 objectID: File.basename(file, '.md'),
                 title: front_matter['title'],
@@ -63,7 +74,7 @@ jobs:
                 date: front_matter['date']&.to_s,
                 categories: categories_value,
                 image: first_image,
-                permalink: "/#{file.include?('/fa/') ? 'fa' : 'en'}/#{categories_path}/#{File.basename(file, '.md')}/",
+                permalink: "/#{file.include?('/fa/') ? 'fa' : 'en'}/#{permalink}",
                 content: html_content
               }
             end
