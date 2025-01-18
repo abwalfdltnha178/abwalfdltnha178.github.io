@@ -63,11 +63,13 @@ defaults:
       path: "_posts/en"
     values:
       lang: "en"
+      dir: "ltr"
       permalink: "/en/:categories/:title/"
   - scope:
       path: "_posts/fa"
     values:
       lang: "fa"
+      dir: "rtl"
       permalink: "/fa/:categories/:title/"
 
 # استثناها از ترجمه
