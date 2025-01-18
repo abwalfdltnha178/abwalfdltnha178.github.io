@@ -13,8 +13,13 @@
     <h1>{{ site.title }}</h1>
     <nav>
       <ul>
+        {% if page.lang == "fa" %}
         <li><a href="{{ "/" | relative_url }}">صفحه اصلی</a></li>
         <li><a href="{{ "/fa/about" | relative_url }}">درباره</a></li>
+        {% elsif page.lang == "en" %}
+        <li><a href="{{ "/" | relative_url }}">Home</a></li>
+        <li><a href="{{ "/fa/about" | relative_url }}">About</a></li>
+        {% endif %}
       </ul>
     </nav>
   </header>
