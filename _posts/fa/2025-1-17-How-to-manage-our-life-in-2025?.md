@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "پست وبلاگ: چگونه در سال ۲۰۲۵ زندگی خود را مدیریت کنیم؟"
+title: "Blog Post: How to Manage Our Lives in 2025?"
 date: 2025-1-17 18:07:00 +0000
-categories: [رسانه]
+categories: [blog]
 ---
 ### **پست وبلاگ: چگونه در سال 2025 زندگی دیجیتال خود را بهینه کنیم؟**
 
