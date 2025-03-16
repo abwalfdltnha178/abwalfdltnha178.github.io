@@ -78,6 +78,10 @@ exclude_from_localizations:
   - images
   - js
   - css
+  - node_modules  # جلوگیری از پردازش node_modules توسط Jekyll
+  - package.json  # جلوگیری از پردازش فایل‌های npm
+  - package-lock.json
+  - .gitignore
 
 # تنظیمات Algolia
 algolia:
