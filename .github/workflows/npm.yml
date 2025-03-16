@@ -1,0 +1,31 @@
+name: Build Jekyll with npm
+
+on:
+  push:
+    branches:
+      - main  # یا هر شاخه‌ای که برای GitHub Pages استفاده می‌کنید
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: دریافت سورس کد
+        uses: actions/checkout@v4
+
+      - name: نصب Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: نصب پکیج‌های npm
+        run: npm install
+
+      - name: اجرای Webpack (اگر دارید)
+        run: npm run build
+
+      - name: اجرای Jekyll
+        run: bundle exec jekyll build
+
+      - name: انتشار روی GitHub Pages
+        uses: actions/upload-pages-artifact@v3
