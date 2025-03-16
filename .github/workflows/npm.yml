@@ -21,9 +21,6 @@ jobs:
       - name: نصب پکیج‌های npm
         run: npm install
 
-      - name: اجرای Webpack (اگر دارید)
-        run: npm run build
-
       - name: اجرای Jekyll
         run: bundle exec jekyll build
 
