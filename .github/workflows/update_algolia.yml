@@ -1,4 +1,4 @@
-name: Update Algolia Index
+name: بروزرسانی ایندکس Algolia
 
 on:
   push:
@@ -11,21 +11,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: دریافت مخزن
         uses: actions/checkout@v3
 
-      - name: Set up Ruby
+      - name: تنظیم Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
           bundler-cache: true
 
-      - name: Install dependencies
+      - name: نصب وابستگی‌ها
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3
 
-      - name: Convert Markdown to JSON and Update Algolia
+      - name: تبدیل Markdown به JSON و بروزرسانی Algolia
         env:
           ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
           ALGOLIA_ADMIN_API_KEY: ${{ secrets.ALGOLIA_ADMIN_API_KEY }}
@@ -37,6 +37,7 @@ jobs:
             require 'kramdown'
             require 'algoliasearch'
             require 'yaml'
+            require 'nokogiri'
 
             # تنظیمات اتصال به Algolia
             Algolia.init(application_id: ENV['ALGOLIA_APP_ID'], api_key: ENV['ALGOLIA_ADMIN_API_KEY'])
@@ -55,7 +56,11 @@ jobs:
 
               # پردازش محتوای Markdown برای یافتن اولین تصویر
               html_content = Kramdown::Document.new(content.split('---', 3).last.strip).to_html
-              first_image = html_content.match(/<img\s+[^>]*src="([^"]+)"/)&.[](1)
+              first_image = html_content.match(/<img\s+ML به متن ساده
+              plain_text = Nokogiri::HTML(html_content).text
+
+              # خلاصه کردن محتوا در صورت طولانی بودن
+              truncated_content = plain_text.size > 9500 ? plain_text[0..9500] + "..." : plain_text
 
               file_name = File.basename(file, '.md').match(/([^-]+)$/)[1]
               categories_value = front_matter['categories']
@@ -76,11 +81,11 @@ jobs:
                 categories: categories_value,
                 image: first_image,
                 permalink: permalink,
-                content: html_content
+                content: truncated_content
               }
             end
 
             # ارسال داده‌ها به Algolia
             index.add_objects(data)
-            puts '✅ Data successfully updated in Algolia index!'
+            puts '✅ اطلاعات با موفقیت در ایندکس Algolia بروزرسانی شد!'
           EOF
