@@ -1,5 +1,174 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="fa-IR"><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://abwalfdltnha178.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://abwalfdltnha178.github.io/" rel="alternate" type="text/html" hreflang="fa-IR" /><updated>2025-03-16T18:22:46+00:00</updated><id>https://abwalfdltnha178.github.io/feed.xml</id><title type="html">ابوالفضل تنها</title><subtitle>یک وبلاگ درباره چیزهای فوق‌العاده.
-</subtitle><author><name>ابوالفضل تنها</name><email>abwalfdltnha178@gmail.com</email></author><entry xml:lang="fa"><title type="html">library javascript</title><link href="https://abwalfdltnha178.github.io/fa/logo/library-javascript/" rel="alternate" type="text/html" title="library javascript" /><published>2025-02-21T17:36:00+00:00</published><updated>2025-02-21T17:36:00+00:00</updated><id>https://abwalfdltnha178.github.io/fa/logo/library-javascript</id><content type="html" xml:base="https://abwalfdltnha178.github.io/fa/logo/library-javascript/"><![CDATA[<h1 id="کتابخانههای-جاوااسکریپت-ابزارهای-قدرتمند-برای-توسعهدهندگان-وب">کتابخانه‌های جاوااسکریپت: ابزارهای قدرتمند برای توسعه‌دهندگان وب</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="fa-IR"><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://abwalfdltnha178.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://abwalfdltnha178.github.io/" rel="alternate" type="text/html" hreflang="fa-IR" /><updated>2025-03-17T03:48:43+00:00</updated><id>https://abwalfdltnha178.github.io/feed.xml</id><title type="html">ابوالفضل تنها</title><subtitle>یک وبلاگ درباره چیزهای فوق‌العاده.
+</subtitle><author><name>ابوالفضل تنها</name><email>abwalfdltnha178@gmail.com</email></author><entry xml:lang="fa"><title type="html">Error github action</title><link href="https://abwalfdltnha178.github.io/fa/github/error-github-action/" rel="alternate" type="text/html" title="Error github action" /><published>2025-03-16T21:48:00+00:00</published><updated>2025-03-16T21:48:00+00:00</updated><id>https://abwalfdltnha178.github.io/fa/github/error-github-action</id><content type="html" xml:base="https://abwalfdltnha178.github.io/fa/github/error-github-action/"><![CDATA[<h1 id="راهنمای-جامع-بررسی-و-رفع-خطاهای-github-actions">راهنمای جامع بررسی و رفع خطاهای GitHub Actions</h1>
+<p><img src="/img/file-RMbqPBjnwpRYsZXiYAXvGE.webp" alt="باگ یا خطا در گیت هاب اکشن " /></p>
+
+<p><strong>GitHub Actions</strong> یکی از ابزارهای قدرتمند برای خودکارسازی فرآیندهای CI/CD است، اما در طول اجرای Workflow ممکن است با خطاهای مختلفی مواجه شویم. در این مقاله، رایج‌ترین کدهای خطا، روش‌های بررسی لاگ‌ها و راه‌حل‌های کاربردی برای رفع مشکلات را بررسی می‌کنیم.</p>
+
+<hr />
+
+<h2 id="۱-کدهای-خروج-exit-codes-و-معنای-آنها">۱. کدهای خروج (Exit Codes) و معنای آن‌ها</h2>
+
+<p>در سیستم‌های مبتنی بر یونیکس، هر برنامه‌ای که اجرا می‌شود یک مقدار به نام <strong>کد خروج</strong> (Exit Code) تولید می‌کند. در GitHub Actions نیز این مقدار مشخص می‌کند که اجرای اسکریپت موفق بوده یا با مشکل روبه‌رو شده است.</p>
+
+<h3 id="کدهای-خروج-متداول-در-github-actions">کدهای خروج متداول در GitHub Actions</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>کد خروج</th>
+      <th>توضیح</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0</code></td>
+      <td>اجرا موفقیت‌آمیز بود.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">1</code></td>
+      <td>یک خطای عمومی رخ داده است.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">2</code></td>
+      <td>سوء استفاده از یک فرمان داخلی رخ داده است.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">126</code></td>
+      <td>دستور یافت شد اما اجازه‌ی اجرا ندارد.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">127</code></td>
+      <td>دستور یافت نشد.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">128</code></td>
+      <td>مقدار خروج نامعتبر است.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">130</code></td>
+      <td>اجرای اسکریپت با <strong>Ctrl+C</strong> متوقف شده است.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">137</code></td>
+      <td>فرآیند به دلیل کمبود حافظه (OOM) متوقف شده است.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">143</code></td>
+      <td>فرآیند با سیگنال <code class="language-plaintext highlighter-rouge">SIGTERM</code> خاتمه یافته است.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="۲-خطاهای-رایج-در-github-actions-و-راهحلها">۲. خطاهای رایج در GitHub Actions و راه‌حل‌ها</h2>
+
+<p>در هنگام اجرای یک <strong>workflow</strong> ممکن است با پیام‌های خطای مختلفی مواجه شوید. در ادامه، برخی از رایج‌ترین خطاها و روش‌های رفع آن‌ها آورده شده است:</p>
+
+<h3 id="۱-error-process-completed-with-exit-code-1">۱. <code class="language-plaintext highlighter-rouge">Error: Process completed with exit code 1</code></h3>
+
+<p><strong>علت:</strong></p>
+<ul>
+  <li>معمولاً این خطا نشان می‌دهد که یک اسکریپت یا دستور در Workflow ناموفق بوده است.</li>
+</ul>
+
+<p><strong>راه‌حل:</strong></p>
+<ul>
+  <li>بررسی کنید که آیا دستور یا اسکریپت در محیط محلی شما اجرا می‌شود یا خیر.</li>
+  <li>پیام‌های خطا در لاگ‌ها را بررسی کنید تا علت دقیق را پیدا کنید.</li>
+</ul>
+
+<hr />
+
+<h3 id="۲-error-no-such-file-or-directory">۲. <code class="language-plaintext highlighter-rouge">Error: No such file or directory</code></h3>
+
+<p><strong>علت:</strong></p>
+<ul>
+  <li>مسیر فایل یا دایرکتوری اشتباه وارد شده است.</li>
+  <li>فایل موردنظر وجود ندارد یا قبل از اجرای دستور ساخته نشده است.</li>
+</ul>
+
+<p><strong>راه‌حل:</strong></p>
+<ul>
+  <li>بررسی کنید که آیا مسیر فایل به درستی تعریف شده است.</li>
+  <li>اگر فایل در مرحله‌ای دیگر ساخته می‌شود، مطمئن شوید که مراحل به درستی اجرا شده‌اند.</li>
+</ul>
+
+<hr />
+
+<h3 id="۳-error-resource-not-accessible-by-integration">۳. <code class="language-plaintext highlighter-rouge">Error: Resource not accessible by integration</code></h3>
+
+<p><strong>علت:</strong></p>
+<ul>
+  <li>GitHub Actions نمی‌تواند به منابع خاصی مانند <strong>ریپازیتوری خصوصی</strong> یا <strong>Secrets</strong> دسترسی پیدا کند.</li>
+</ul>
+
+<p><strong>راه‌حل:</strong></p>
+<ul>
+  <li>بررسی کنید که آیا <strong>GitHub Token</strong> (<code class="language-plaintext highlighter-rouge">secrets.GITHUB_TOKEN</code>) در Workflow به درستی مقداردهی شده است.</li>
+  <li>مطمئن شوید که تنظیمات مربوط به دسترسی به مخزن به درستی انجام شده است.</li>
+</ul>
+
+<hr />
+
+<h3 id="۴-error-cannot-find-module-">۴. <code class="language-plaintext highlighter-rouge">Error: Cannot find module ...</code></h3>
+
+<p><strong>علت:</strong></p>
+<ul>
+  <li>معمولاً این خطا در <strong>Node.js</strong> رخ می‌دهد و به این معناست که یک ماژول نصب نشده است.</li>
+</ul>
+
+<p><strong>راه‌حل:</strong></p>
+<ul>
+  <li>اطمینان حاصل کنید که دستورات <code class="language-plaintext highlighter-rouge">npm install</code> یا <code class="language-plaintext highlighter-rouge">yarn install</code> را اجرا کرده‌اید.</li>
+  <li>در صورت نیاز، <code class="language-plaintext highlighter-rouge">package.json</code> و <code class="language-plaintext highlighter-rouge">node_modules</code> را بررسی کنید.</li>
+</ul>
+
+<hr />
+
+<h3 id="۵-error-permission-denied">۵. <code class="language-plaintext highlighter-rouge">Error: Permission denied</code></h3>
+
+<p><strong>علت:</strong></p>
+<ul>
+  <li>اسکریپت یا فایل اجرایی مجوز اجرا ندارد.</li>
+</ul>
+
+<p><strong>راه‌حل:</strong></p>
+<ul>
+  <li>از دستور زیر برای اضافه کردن مجوز اجرا به فایل استفاده کنید:</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">chmod</span> +x script.sh
+</code></pre></div></div>
+
+<ul>
+  <li>مطمئن شوید که Workflow به درستی تعریف شده و اسکریپت‌ها از مسیر صحیح اجرا می‌شوند.</li>
+</ul>
+
+<hr />
+
+<h2 id="۳-چگونه-لاگهای-github-actions-را-مشاهده-کنیم">۳. چگونه لاگ‌های GitHub Actions را مشاهده کنیم؟</h2>
+
+<p>برای مشاهده‌ی لاگ‌های اجرای Workflow، مراحل زیر را دنبال کنید:</p>
+
+<ol>
+  <li>به <strong>GitHub Repository</strong> خود بروید.</li>
+  <li>روی <strong>Actions</strong> کلیک کنید.</li>
+  <li>Workflow مورد نظر را انتخاب کنید.</li>
+  <li>روی یکی از <strong>Jobs</strong> کلیک کنید تا لاگ‌ها نمایش داده شوند.</li>
+</ol>
+
+<p>همچنین می‌توانید با اضافه کردن این خط در اسکریپت خود، <strong>دیباگ مود</strong> را فعال کنید:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">env</span><span class="pi">:</span>
+  <span class="na">ACTIONS_STEP_DEBUG</span><span class="pi">:</span> <span class="no">true</span>
+</code></pre></div></div>
+
+<h2 id="نتیجهگیری">نتیجه‌گیری</h2>
+
+<p>در این مقاله با رایج‌ترین کدهای خطا و نحوه‌ی رفع آن‌ها در GitHub Actions آشنا شدیم. با بررسی دقیق لاگ‌ها و استفاده از روش‌های پیشنهادی، می‌توانید خطاهای Workflow خود را برطرف کرده و اجرای CI/CD را بدون مشکل پیش ببرید.</p>
+
+<p><strong>آیا تاکنون با خطای خاصی در GitHub Actions مواجه شده‌اید؟ تجربیات خود را در بخش نظرات با ما به اشتراک بگذارید!</strong></p>]]></content><author><name>ابوالفضل تنها</name><email>abwalfdltnha178@gmail.com</email></author><category term="github" /><summary type="html"><![CDATA[راهنمای جامع بررسی و رفع خطاهای GitHub Actions]]></summary></entry><entry xml:lang="fa"><title type="html">library javascript</title><link href="https://abwalfdltnha178.github.io/fa/logo/library-javascript/" rel="alternate" type="text/html" title="library javascript" /><published>2025-02-21T17:36:00+00:00</published><updated>2025-02-21T17:36:00+00:00</updated><id>https://abwalfdltnha178.github.io/fa/logo/library-javascript</id><content type="html" xml:base="https://abwalfdltnha178.github.io/fa/logo/library-javascript/"><![CDATA[<h1 id="کتابخانههای-جاوااسکریپت-ابزارهای-قدرتمند-برای-توسعهدهندگان-وب">کتابخانه‌های جاوااسکریپت: ابزارهای قدرتمند برای توسعه‌دهندگان وب</h1>
 <p><img src="/img/IMG_20250221_205129_869.jpg" alt="یک تصویر نمایشی برای کتابخانه های جاوااسکریپت با ماکروسافت دیزاینر " /></p>
 
 <p>جاوااسکریپت یکی از محبوب‌ترین زبان‌های برنامه‌نویسی در دنیای وب است. این زبان به توسعه‌دهندگان اجازه می‌دهد تا وب‌سایت‌ها و برنامه‌های تحت وب تعاملی و پویا ایجاد کنند. با این حال، نوشتن کد از صفر برای هر پروژه می‌تواند زمان‌بر و چالش‌برانگیز باشد. اینجاست که <strong>کتابخانه‌های جاوااسکریپت</strong> به کمک می‌آیند. کتابخانه‌ها مجموعه‌ای از توابع و ابزارهای از پیش نوشته شده هستند که به توسعه‌دهندگان کمک می‌کنند تا کارهای رایج را سریع‌تر و با خطای کمتر انجام دهند.</p>
@@ -243,29 +412,4 @@
 <h2 id="ورود-به-سیستم-برای-این-کار-الزامی-است">ورود به سیستم برای این کار الزامی است.</h2>
 <p>بعد از کلیک چنانچه وارد نشده اید باید وارد سایت شوید.(با استفاده از حساب <strong><em>ماکروسافت</em></strong>)
 تصاویر ایجاد شده را دانلود کنید و تمام.
-<script src="./a.js"></script></p>]]></content><author><name>ابوالفضل تنها</name><email>abwalfdltnha178@gmail.com</email></author><category term="blog" /><summary type="html"><![CDATA[ساخت تصاویر با سایت بینگ]]></summary></entry><entry xml:lang="fa"><title type="html">درباره</title><link href="https://abwalfdltnha178.github.io/fa/about/" rel="alternate" type="text/html" title="درباره" /><published>2023-11-25T12:00:00+00:00</published><updated>2023-11-25T12:00:00+00:00</updated><id>https://abwalfdltnha178.github.io/fa/about</id><content type="html" xml:base="https://abwalfdltnha178.github.io/fa/about/"><![CDATA[<h1 id="درباره-ما">درباره ما</h1>
-<p><img src="/OIG.jpeg" alt="گل رز آبی در فصل بهار " />
-سلام این یک وب سایت است که در حال ساخت است و از آن به عنوان رزومه کاری استفاده می شود.</p>
-<h2 id="گیت-هاب">گیت هاب</h2>
-<p>این پروژه توسط گیت هاب میزبانی می‌شود و توسط مخزن گیت هاب پشتیبانی می شود.</p>
-<h3 id="مخزن-این-پروژه">مخزن این پروژه</h3>
-<p>مخزن این پروژه در نشانی:</p>
-
-<p><a href="https://github.com/abwalfdltnha178/abwalfdltnha178.github.io">https://github.com/abwalfdltnha178/abwalfdltnha178.github.io</a></p>
-
-<p>موجود است و همچنین همین صفحه را هم می توانید در <a href="https://github.com/abwalfdltnha178/abwalfdltnha178.github.io/edit/main/README.md">این نشانی</a> ببیند و آن را<strong>ویرایش</strong> کنید.</p>
-
-<h2 id="abwalfdltnha178">abwalfdltnha178</h2>
-<p>من ابوالفضل تنها هستم.اگر می خواهید بقیه صفحات وب من را ببینید در <a href="http://google.com/search?q=abwalfdltnha178">گوگل</a> جستجو کنید.</p>
-<h3 id="بقیه-شبکه-های-اجتماعی-من">بقیه شبکه های اجتماعی من</h3>
-<p><a href="http://facebook.com/abwalfdltnha178">فیسبوک</a></p>
-
-<p><a href="http://twitter.com/abwalfdltnha178">توییتر</a></p>
-
-<p><a href="http://instagram.com/abwalfdltnha1782020">اینستاگرام</a></p>
-
-<p><a href="http://linkedin.com/in/abwalfdltnha178">لینکین</a></p>
-
-<p><a href="https://www.pinterest.com/abwalfdltnha178">پینترست</a></p>
-
-<script src="./a.js"></script>]]></content><author><name>ابوالفضل تنها</name><email>abwalfdltnha178@gmail.com</email></author><summary type="html"><![CDATA[درباره ما سلام این یک وب سایت است که در حال ساخت است و از آن به عنوان رزومه کاری استفاده می شود. گیت هاب این پروژه توسط گیت هاب میزبانی می‌شود و توسط مخزن گیت هاب پشتیبانی می شود. مخزن این پروژه مخزن این پروژه در نشانی:]]></summary></entry></feed>
+<script src="./a.js"></script></p>]]></content><author><name>ابوالفضل تنها</name><email>abwalfdltnha178@gmail.com</email></author><category term="blog" /><summary type="html"><![CDATA[ساخت تصاویر با سایت بینگ]]></summary></entry></feed>
