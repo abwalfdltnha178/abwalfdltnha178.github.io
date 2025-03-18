@@ -76,7 +76,8 @@ img {
 img:hover {
     transform: scale(1.03);
 }
-
+/* تراز متن کد */
+code, pre {text-align:left;}
 /* استایل فوتر */
 footer {
     background: #222;
