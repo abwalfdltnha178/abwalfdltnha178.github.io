@@ -21,6 +21,9 @@ jobs:
       - name: نصب Bundler
         run: gem install bundler
 
+      - name: نصب پکیج‌های پروژه
+        run: bundle install
+
       - name: نصب پکیج‌های npm
         run: npm install
 
