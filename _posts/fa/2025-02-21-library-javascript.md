@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "library javascript"
+title: "کتابخانه‌های جاوااسکریپت: ابزارهای قدرتمند برای توسعه‌دهندگان وب"
 date: 2025-02-21 17:36:00 +0000
 categories: [logo]
 ---
