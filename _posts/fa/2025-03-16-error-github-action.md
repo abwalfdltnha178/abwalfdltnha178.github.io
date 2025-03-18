@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Error github action"
+title: "راهنمای جامع بررسی و رفع خطاهای GitHub Actions"
 date: 2025-03-16 21:48:00 +0000
 categories: [github]
 ---
