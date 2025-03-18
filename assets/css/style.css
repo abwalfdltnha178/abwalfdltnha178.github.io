@@ -76,8 +76,13 @@ img {
 img:hover {
     transform: scale(1.03);
 }
+
 /* تراز متن کد */
-code, pre {text-align:left;}
+code, pre {
+    text-align: right; /* تغییر تراز متن به راست */
+    direction: rtl; /* تغییر جهت نوشتار به راست به چپ */
+}
+
 /* استایل فوتر */
 footer {
     background: #222;
