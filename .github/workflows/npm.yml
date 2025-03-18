@@ -1,4 +1,4 @@
-name: Build Jekyll with npm
+name: ساخت Jekyll با npm
 
 on:
   push:
@@ -13,10 +13,13 @@ jobs:
       - name: دریافت سورس کد
         uses: actions/checkout@v4
 
-      - name: نصب Node.js
-        uses: actions/setup-node@v4
+      - name: نصب Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          node-version: 18
+          ruby-version: '3.0'
+
+      - name: نصب Bundler
+        run: gem install bundler
 
       - name: نصب پکیج‌های npm
         run: npm install
