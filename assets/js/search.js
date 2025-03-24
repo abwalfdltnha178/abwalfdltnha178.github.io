@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", function(){
 const searchClient = algoliasearch('N9TTQ38R4A', 'b6ac49385375e4237691c249390227c6');
 
 const search = instantsearch({
@@ -30,3 +31,4 @@ search.addWidgets([
 
 // شروع جستجو
 search.start();
+})
