@@ -8,68 +8,64 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.5.1/themes/satellite-min.css">
 </head>
 <body>
-  <div class="ais-InstantSearch">
-    <div id="searchbox"></div>
-    <div id="hits"></div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.24.0/dist/algoliasearch-lite.umd.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.49.0/dist/instantsearch.production.min.js"></script>
-  <script>
-    // اتصال به Algolia
-    const searchClient = algoliasearch('N9TTQ38R4A', 'b6ac49385375e4237691c249390227c6');
-    
-    // دریافت مقدار `q` از URL
-    const params = new URLSearchParams(window.location.search);
-    const query = params.get("q") || ""; // اگر `q` وجود نداشت، مقدار پیش‌فرض خالی قرار می‌گیرد
-
-    // تنظیمات InstantSearch
-    const search = instantsearch({
-      indexName: 'My First Application',
-      searchClient,
-      initialUiState: {
-        'My First Application': { // نام ایندکس
-          query: query, // مقدار اولیه برای جستجو
-        },
-      },
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flexsearch/0.7.31/flexsearch.min.js"></script>
+<script>
+fetch("/search.json")
+  .then(response => response.json())
+  .then(data => {
+    const index = new FlexSearch.Index({
+      tokenize: "forward",
+      encode: "balance",
+      phonetic: true,
+      suggest: true
     });
 
-    // افزودن ویجت‌ها
-    search.addWidgets([
-      instantsearch.widgets.searchBox({
-        container: '#searchbox',
-        placeholder: 'جستجو...',
-      }),
-      instantsearch.widgets.configure({
-        hitsPerPage: 5, // تعداد نتایج در هر صفحه
-      }),
-      instantsearch.widgets.hits({
-        container: "#hits",
-        templates: {
-          item: (hit, { html, components }) => html`
-            <a href="${hit.permalink}" class="hit-item">
-              <div class="hit-content">
-                <div class="hit-image">
-                  <img src="${hit.image}" alt="${hit.title}" />
-                </div>
-                <div class="hit-details">
-                  <h2 class="hit-title">
-                    ${components.Highlight({ hit, attribute: "title" })}
-                  </h2>
-                  <p class="hit-date">${hit.date}</p>
-                  <div class="hit-excerpt">
-                    ${components.Snippet({ hit, attribute: "content" })}
-                  </div>
-                </div>
-              </div>
-            </a>
-          `,
-        },
-      }),
-    ]);
+    function normalizePersian(text) {
+        return text.replace(/ي/g, "ی").replace(/ك/g, "ک").replace(/ة/g, "ه").replace(/ؤ/g, "و").replace(/ئ/g, "ی");
+    }
 
-    // شروع جستجو
-    search.start();
-  </script>
+    data.forEach(item => index.add(item.id, normalizePersian(item.title + " " + item.content)));
+
+    document.getElementById("search").addEventListener("input", function () {
+      let query = normalizePersian(this.value);
+      let results = index.search(query);
+      
+      if (results.length === 0) {
+        results = data.filter(item => levenshteinDistance(query, normalizePersian(item.title)) <= 2).map(item => item.id);
+      }
+
+      document.getElementById("results").innerHTML = results
+        .map(id => `<li>${data.find(d => d.id == id).title}</li>`)
+        .join("");
+    });
+  });
+
+function levenshteinDistance(a, b) {
+    if (!a.length) return b.length;
+    if (!b.length) return a.length;
+
+    let matrix = Array(a.length + 1)
+        .fill(null)
+        .map(() => Array(b.length + 1).fill(null));
+
+    for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+    for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+
+    for (let i = 1; i <= a.length; i++) {
+        for (let j = 1; j <= b.length; j++) {
+            const indicator = a[i - 1] === b[j - 1] ? 0 : 1;
+            matrix[i][j] = Math.min(
+                matrix[i - 1][j] + 1,
+                matrix[i][j - 1] + 1,
+                matrix[i - 1][j - 1] + indicator
+            );
+        }
+    }
+    return matrix[a.length][b.length];
+      }
+</script>
+
+<input type="text" id="search" placeholder="جستجو کنید..." />
+<ul id="results"></ul>
 </body>
 </html>
