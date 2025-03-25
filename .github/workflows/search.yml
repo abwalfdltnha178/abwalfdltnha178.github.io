@@ -71,3 +71,4 @@ jobs:
           branch: gh-pages
           folder: _site
           clean: false
+          token: ${{ secrets.GITHUB_TOKEN }}
