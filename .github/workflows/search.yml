@@ -20,11 +20,11 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-      - name: نصب وابستگی‌های Jekyll
+      - name: نصب وابستگی‌ها
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3
-          gem install jekyll
+          gem install jekyll nokogiri kramdown
 
       - name: تبدیل Markdown به JSON
         run: |
