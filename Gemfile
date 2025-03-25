@@ -21,6 +21,9 @@ gem 'jekyll-multiple-languages-plugin'
 gem 'kramdown'
 gem 'kramdown-parser-gfm'
 
+# نمایش جی سان در سایت 
+gem "jekyll-include-json"
+
 # آلگولیا موتور جستجو
 gem 'algoliasearch', '~> 1.27.5'
 gem 'jekyll-algolia', '~> 1.7'
