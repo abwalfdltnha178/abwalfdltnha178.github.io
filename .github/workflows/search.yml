@@ -31,12 +31,19 @@ jobs:
 
       - name: تبدیل Markdown به JSON
         run: |
-          mkdir -p _site
+          mkdir -p _site/assets  # اطمینان از وجود پوشه
+          echo "Checking if the folder exists"
+          ls -l _site/assets  # نمایش محتویات پوشه برای بررسی
+
           ruby <<EOF
           require 'json'
           require 'yaml'
           require 'kramdown'
           require 'nokogiri'
+          require 'fileutils'
+
+          # ایجاد پوشه‌ها در صورت نیاز
+          FileUtils.mkdir_p('_site/assets')
 
           # خواندن فایل‌های Markdown از _posts
           markdown_files = Dir.glob('_posts/**/*.md')
@@ -65,6 +72,7 @@ jobs:
           end
 
           # ذخیره در فایل JSON
+          puts "Saving file to _site/assets/search.json"
           File.write('_site/assets/search.json', JSON.pretty_generate(data))
           EOF
 
