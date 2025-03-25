@@ -35,7 +35,7 @@ plugins:
   - jekyll-seo-tag
   - jekyll-multiple-languages-plugin
   - jekyll-algolia # افزونه Algolia برای جستجو
-  - jekyll-include-json # نمایش جی سان
+  
 # تنظیمات پیوند دائمی
 permalink: /:lang/:categories/:title/
 
