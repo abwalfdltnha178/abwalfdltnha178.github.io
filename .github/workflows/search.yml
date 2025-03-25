@@ -65,7 +65,7 @@ jobs:
           end
 
           # ذخیره در فایل JSON
-          File.write('_site/search.json', JSON.pretty_generate(data))
+          File.write('_site/assets/search.json', JSON.pretty_generate(data))
           EOF
 
       - name: انتشار search.json در GitHub Pages
