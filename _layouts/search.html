@@ -8,9 +8,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.5.1/themes/satellite-min.css">
 </head>
 <body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flexsearch/0.7.31/flexsearch.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FlexSearch/0.8.1/flexsearch.es5.min.js"></script>
 <script>
-fetch("/search.json")
+fetch("https://raw.githubusercontent.com/abwalfdltnha178/abwalfdltnha178.github.io/refs/heads/gh-pages/assets/search.json")
   .then(response => response.json())
   .then(data => {
     const index = new FlexSearch.Index({
