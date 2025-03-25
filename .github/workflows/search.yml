@@ -6,6 +6,9 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: write  # این خط مهم است!
+
 jobs:
   generate-search-json:
     runs-on: ubuntu-latest
