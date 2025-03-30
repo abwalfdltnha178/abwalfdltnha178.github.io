@@ -4,88 +4,38 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
-  update-algolia:
+  update-algolia-index:
     runs-on: ubuntu-latest
 
     steps:
-      - name: دریافت مخزن
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: تنظیم Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-          bundler-cache: true
+    - name: Install Ruby and dependencies
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
 
-      - name: نصب وابستگی‌ها
-        run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
+    - name: Install Bundler
+      run: gem install bundler
 
-      - name: تبدیل Markdown به JSON و بروزرسانی Algolia
-        env:
-          ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
-          ALGOLIA_ADMIN_API_KEY: ${{ secrets.ALGOLIA_ADMIN_API_KEY }}
-          ALGOLIA_INDEX_NAME: ${{ secrets.ALGOLIA_INDEX_NAME }}
-        run: |
-          mkdir -p data
-          bundle exec ruby << EOF
-            require 'json'
-            require 'kramdown'
-            require 'algoliasearch'
-            require 'yaml'
-            require 'nokogiri'
+    - name: Install dependencies
+      run: bundle install
 
-            # تنظیمات اتصال به Algolia
-            Algolia.init(application_id: ENV['ALGOLIA_APP_ID'], api_key: ENV['ALGOLIA_ADMIN_API_KEY'])
-            index = Algolia::Index.new(ENV['ALGOLIA_INDEX_NAME'])
+    - name: Build the site
+      run: bundle exec jekyll build
 
-            # بارگذاری تنظیمات _config.yml
-            config = YAML.load_file('_config.yml')
-            default_permalink = config['permalink'] || "/:categories/:title/"
+    - name: Update Algolia index
+      run: |
+        export ALGOLIA_API_KEY=${{ secrets.ALGOLIA_API_KEY }}
+        bundle exec jekyll algolia
 
-            # خواندن فایل‌های Markdown
-            markdown_files = Dir.glob('_posts/{fa,en}/*.md')
-            data = markdown_files.map do |file|
-              content = File.read(file)
-              front_matter_content = content.match(/---(.*?)---/m)[1]
-              front_matter = YAML.safe_load(front_matter_content, permitted_classes: [Time])
-
-              # پردازش محتوای Markdown برای یافتن اولین تصویر
-              html_content = Kramdown::Document.new(content.split('---', 3).last.strip).to_html
-              first_image = html_content.match(/<img\s+ML به متن ساده
-              plain_text = Nokogiri::HTML(html_content).text
-
-              # خلاصه کردن محتوا در صورت طولانی بودن
-              truncated_content = plain_text.size > 9500 ? plain_text[0..9500] + "..." : plain_text
-
-              file_name = File.basename(file, '.md').match(/([^-]+)$/)[1]
-              categories_value = front_matter['categories']
-              categories_path = categories_value.is_a?(Array) ? categories_value.join('/') : categories_value
-              
-              lang = file.include?('/fa/') ? 'fa' : 'en'
-
-              permalink = default_permalink.dup
-              permalink.gsub!(':categories', categories_path.to_s)
-              permalink.gsub!(':title', file_name.to_s)
-              permalink.gsub!(':lang', lang)
-              
-              {
-                objectID: File.basename(file, '.md'),
-                title: front_matter['title'],
-                lang: lang,
-                date: front_matter['date']&.to_s,
-                categories: categories_value,
-                image: first_image,
-                permalink: permalink,
-                content: truncated_content
-              }
-            end
-
-            # ارسال داده‌ها به Algolia
-            index.add_objects(data)
-            puts '✅ اطلاعات با موفقیت در ایندکس Algolia بروزرسانی شد!'
-          EOF
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'actions@github.com'
+        git add .
+        git commit -m "Update Algolia index"
+        git push
