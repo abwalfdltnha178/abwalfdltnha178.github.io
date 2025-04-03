@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="fa-IR"><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://abwalfdltnha178.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://abwalfdltnha178.github.io/" rel="alternate" type="text/html" hreflang="fa-IR" /><updated>2025-04-03T13:45:40+00:00</updated><id>https://abwalfdltnha178.github.io/feed.xml</id><title type="html">ابوالفضل تنها</title><subtitle>یک وبلاگ درباره چیزهای فوق‌العاده.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="fa-IR"><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://abwalfdltnha178.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://abwalfdltnha178.github.io/" rel="alternate" type="text/html" hreflang="fa-IR" /><updated>2025-04-03T17:49:26+00:00</updated><id>https://abwalfdltnha178.github.io/feed.xml</id><title type="html">ابوالفضل تنها</title><subtitle>یک وبلاگ درباره چیزهای فوق‌العاده.
 </subtitle><author><name>ابوالفضل تنها</name><email>abwalfdltnha178@gmail.com</email></author><entry xml:lang="fa"><title type="html">راهنمای جامع بررسی و رفع خطاهای GitHub Actions</title><link href="https://abwalfdltnha178.github.io/fa/github/error-github-action/" rel="alternate" type="text/html" title="راهنمای جامع بررسی و رفع خطاهای GitHub Actions" /><published>2025-03-16T21:48:00+00:00</published><updated>2025-03-16T21:48:00+00:00</updated><id>https://abwalfdltnha178.github.io/fa/github/error-github-action</id><content type="html" xml:base="https://abwalfdltnha178.github.io/fa/github/error-github-action/"><![CDATA[<h1 id="راهنمای-جامع-بررسی-و-رفع-خطاهای-github-actions">راهنمای جامع بررسی و رفع خطاهای GitHub Actions</h1>
 <p><img src="/img/file-RMbqPBjnwpRYsZXiYAXvGE.webp" alt="باگ یا خطا در گیت هاب اکشن " /></p>
 
@@ -173,13 +173,11 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "QAPage",
+  "@type": "FAQPage",
   "mainEntity": [
     {
       "@type": "Question",
       "name": "چگونه ارورهای GitHub Actions را رفع کنیم؟",
-      "text": "در هنگام اجرای GitHub Actions ممکن است با انواع مختلفی از خطاها مواجه شوید. چگونه می‌توان این مشکلات را حل کرد؟",
-      "answerCount": 1,
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "برای رفع ارورهای GitHub Actions، ابتدا باید لاگ‌های اجرای فرآیند را بررسی کنید. همچنین، از مستندات رسمی GitHub برای حل مشکلات رایج استفاده کنید. برخی از خطاهای متداول شامل عدم دسترسی به توکن، پیکربندی اشتباه YAML و مشکلات مربوط به دسترسی به مخزن هستند."
@@ -188,8 +186,6 @@
     {
       "@type": "Question",
       "name": "چرا GitHub Action من اجرا نمی‌شود؟",
-      "text": "گاهی اوقات GitHub Action پس از push تغییرات اجرا نمی‌شود. چه دلایلی ممکن است باعث این مشکل شود؟",
-      "answerCount": 1,
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "دلایل زیادی برای اجرا نشدن GitHub Action وجود دارد. ممکن است event به درستی تنظیم نشده باشد (مثلاً فقط روی `push` اجرا شود ولی شما `pull_request` را انتظار داشته باشید). همچنین، ممکن است فایل YAML دارای خطا باشد یا workflow از دسترسی‌های لازم برخوردار نباشد."
@@ -198,8 +194,6 @@
     {
       "@type": "Question",
       "name": "چگونه می‌توان در GitHub Actions از secretها استفاده کرد؟",
-      "text": "برای ذخیره و استفاده از اطلاعات حساس مانند توکن‌ها در GitHub Actions، چه روشی پیشنهاد می‌شود؟",
-      "answerCount": 1,
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "برای استفاده از secretها در GitHub Actions، می‌توانید از قسمت Settings → Secrets مخزن خود مقدارهای حساس را اضافه کنید. سپس در فایل YAML با `$` از آنها استفاده کنید. این روش امنیت داده‌های حساس را حفظ می‌کند."
