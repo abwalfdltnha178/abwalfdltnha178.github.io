@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "احساس بیارزشی از کجا میآید؟ و چگونه با آن مقابله کنیم؟"
+title: "self-compassion"
 date: 2025-04-04 14:08:00 +0000
 categories: [blog]
 ---
