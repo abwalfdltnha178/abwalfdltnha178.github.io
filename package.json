@@ -1,11 +1,10 @@
 {
-  "name": "algolia-search",
+  "name": "@abwalfdltnha178/my-package",
   "version": "1.0.0",
-  "scripts": {
-    "build": "jekyll build"
+  "description": "My first package published to GitHub Packages",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abwalfdltnha178/abwalfdltnha178.github.io.git"
   },
-  "dependencies": {
-    "algoliasearch": "^4.15.1",
-    "instantsearch.js": "^4.39.1"
-  }
+  "license": "MIT"
 }
