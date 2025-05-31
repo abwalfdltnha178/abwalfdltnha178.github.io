@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>افکت دارک‌مود تلگرام</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: sans-serif;
+      background: #ffffff;
+      color: #000;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .dark {
+      background: #121212;
+      color: #fff;
+    }
+
+    #darkToggle {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: #6200ee;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .reveal {
+      position: fixed;
+      border-radius: 50%;
+      background: #121212;
+      transform: scale(0);
+      z-index: 1;
+      pointer-events: none;
+      transition: transform 0.6s ease-out;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="darkToggle">تغییر حالت</button>
+  <div id="revealEffect" class="reveal"></div>
+
+  <script>
+    const btn = document.getElementById("darkToggle");
+    const reveal = document.getElementById("revealEffect");
+    let isDark = false;
+
+    btn.addEventListener("click", (e) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      const d = Math.max(window.innerWidth, window.innerHeight) * 2;
+
+      reveal.style.left = `${x - d / 2}px`;
+      reveal.style.top = `${y - d / 2}px`;
+      reveal.style.width = `${d}px`;
+      reveal.style.height = `${d}px`;
+      reveal.style.transform = "scale(1)";
+
+      setTimeout(() => {
+        document.body.classList.toggle("dark");
+      }, 300); // تغییر تم کمی بعد از شروع افکت انجام میشه
+
+      setTimeout(() => {
+        reveal.style.transform = "scale(0)";
+      }, 700);
+    });
+  </script>
+
+</body>
+</html>
