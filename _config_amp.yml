@@ -1,12 +1,25 @@
 defaults:
   - scope:
-      path: ""
-      type: "posts"
+      path: "_posts/en"
     values:
-      layout: amp
-
+      layout: "amp"
+      lang: "en"
+      dir: "ltr"
+      permalink: "/amp/en/:categories/:title/"
   - scope:
-      path: ""
-      type: "pages"
+      path: "_posts/fa"
     values:
-      layout: amp
+      layout: "amp"
+      lang: "fa"
+      dir: "rtl"
+      permalink: "/amp/fa/:categories/:title/"
+
+# پلاگین‌ها فعال بمانند تا ترجمه‌ها کار کنند
+plugins:
+  - jekyll-multiple-languages-plugin
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# permalink کلی (fallback) — اگر بالا کافی نباشد
+permalink: /amp/:lang/:categories/:title/
