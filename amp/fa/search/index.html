@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>جستجو</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.5.1/themes/satellite-min.css">
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FlexSearch/0.8.1/flexsearch.es5.min.js"></script>
+<script>
+fetch("https://raw.githubusercontent.com/abwalfdltnha178/abwalfdltnha178.github.io/refs/heads/gh-pages/assets/search.json")
+  .then(response => response.json())
+  .then(data => {
+    const index = new FlexSearch.Index({
+      tokenize: "forward",
+      encode: "balance",
+      phonetic: true,
+      suggest: true
+    });
+
+    function normalizePersian(text) {
+        return text.replace(/ي/g, "ی").replace(/ك/g, "ک").replace(/ة/g, "ه").replace(/ؤ/g, "و").replace(/ئ/g, "ی");
+    }
+
+    data.forEach(item => index.add(item.id, normalizePersian(item.title + " " + item.content)));
+
+    document.getElementById("search").addEventListener("input", function () {
+      let query = normalizePersian(this.value);
+      let results = index.search(query);
+      
+      if (results.length === 0) {
+        results = data.filter(item => levenshteinDistance(query, normalizePersian(item.title)) <= 2).map(item => item.id);
+      }
+
+      document.getElementById("results").innerHTML = results
+        .map(id => `<li>${data.find(d => d.id == id).title}</li>`)
+        .join("");
+    });
+  });
+
+function levenshteinDistance(a, b) {
+    if (!a.length) return b.length;
+    if (!b.length) return a.length;
+
+    let matrix = Array(a.length + 1)
+        .fill(null)
+        .map(() => Array(b.length + 1).fill(null));
+
+    for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+    for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+
+    for (let i = 1; i <= a.length; i++) {
+        for (let j = 1; j <= b.length; j++) {
+            const indicator = a[i - 1] === b[j - 1] ? 0 : 1;
+            matrix[i][j] = Math.min(
+                matrix[i - 1][j] + 1,
+                matrix[i][j - 1] + 1,
+                matrix[i - 1][j - 1] + indicator
+            );
+        }
+    }
+    return matrix[a.length][b.length];
+      }
+</script>
+
+<input type="text" id="search" placeholder="جستجو کنید..." />
+<ul id="results"></ul>
+</body>
+</html>
