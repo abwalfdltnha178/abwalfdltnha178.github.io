@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ page.title }}</title>
+    <link rel="canonical" href="{{ page.url | relative_url }}">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <style amp-boilerplate>
+      body{visibility:hidden}
+    </style>
+    <style amp-custom>
+      body {
+        font-family: sans-serif;
+        padding: 1rem;
+        max-width: 700px;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>{{ page.title }}</h1>
+    <article>
+      {{ content }}
+    </article>
+  </body>
+</html>
+ 
