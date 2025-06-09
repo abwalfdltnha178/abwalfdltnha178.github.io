@@ -1,10 +1,19 @@
 {
-  "name": "@abwalfdltnha178/my-package",
+  "name": "algolia-search",
   "version": "1.0.0",
-  "description": "My first package published to GitHub Packages",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/abwalfdltnha178/abwalfdltnha178.github.io.git"
+  "description": "این پروژه با استفاده از npm و Astro ساخته شده است. ![گل رز آبی در فصل بهار ](/OIG.jpeg) >این تصویر با هوش مصنوعی ساخته شده است. [بیشتر بدانید...](https://abwalfdltnha178.github.io/ساخت-تصاویر-با-سایت-بینگ) >",
+  "main": "a.js",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
   },
-  "license": "MIT"
+  "dependencies": {
+    "algoliasearch": "^4.15.1",
+    "astro": "^5.9.1",
+    "instantsearch.js": "^4.39.1"
+  },
+  "keywords": ["astro", "npm", "algolia", "instantsearch"],
+  "author": "",
+  "license": "ISC"
 }
