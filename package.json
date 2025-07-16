@@ -1,19 +1,13 @@
 {
-  "name": "algolia-search",
-  "version": "1.0.0",
-  "description": "این پروژه با استفاده از npm و Astro ساخته شده است. ![گل رز آبی در فصل بهار ](/OIG.jpeg) >این تصویر با هوش مصنوعی ساخته شده است. [بیشتر بدانید...](https://abwalfdltnha178.github.io/ساخت-تصاویر-با-سایت-بینگ) >",
-  "main": "a.js",
+  "name": "astro-site",
+  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview"
   },
   "dependencies": {
-    "algoliasearch": "^4.15.1",
-    "astro": "^5.9.1",
-    "instantsearch.js": "^4.39.1"
-  },
-  "keywords": ["astro", "npm", "algolia", "instantsearch"],
-  "author": "",
-  "license": "ISC"
+    "astro": "^4.0.0",
+    "@astrojs/content": "^0.19.5"
+  }
 }
