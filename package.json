@@ -9,11 +9,16 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "algoliasearch": "^4.15.1",
+    "algoliasearch": "^4.25.2",
     "astro": "^5.9.1",
-    "instantsearch.js": "^4.39.1"
+    "instantsearch.js": "^4.79.1"
   },
-  "keywords": ["astro", "npm", "algolia", "instantsearch"],
+  "keywords": [
+    "astro",
+    "npm",
+    "algolia",
+    "instantsearch"
+  ],
   "author": "",
   "license": "ISC"
 }
