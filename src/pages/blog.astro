@@ -6,9 +6,13 @@ const posts = await getCollection('blog');
 ---
 
 <BlogLayout>
+  <h1>📝 وبلاگ</h1>
   <ul>
     {posts.map(post => (
-      <li><a href={`/blog/${post.slug}/`}>{post.data.title}</a></li>
+      <li>
+        <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+        <small> ({post.data.date.toDateString()})</small>
+      </li>
     ))}
   </ul>
 </BlogLayout>
