@@ -7,7 +7,6 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "^4.0.0",
-    "@astrojs/content": "^0.19.5"
+    "astro": "^4.10.0"
   }
 }
