@@ -1,10 +1,18 @@
 ---
-import { getEntry } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import BlogLayout from "../../layouts/BlogLayout.astro";
 
-const { slug } = Astro.params;
+// 1) مسیرهای static برای هر پست
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
 
-// پست را از کالکشن 'blog' پیدا می‌کنیم
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+}
+
+// 2) گرفتن پست بر اساس slug
+const { slug } = Astro.params;
 const entry = await getEntry("blog", slug);
 
 if (!entry) {
