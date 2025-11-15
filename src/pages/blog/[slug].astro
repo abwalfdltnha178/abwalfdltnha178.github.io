@@ -1,9 +1,11 @@
 ---
-import { getCollectionEntryBySlug } from "astro:content";
+import { getEntry } from "astro:content";
 import BlogLayout from "../../layouts/BlogLayout.astro";
 
 const { slug } = Astro.params;
-const entry = await getCollectionEntryBySlug("blog", slug);
+
+// پست را از کالکشن 'blog' پیدا می‌کنیم
+const entry = await getEntry("blog", slug);
 
 if (!entry) {
   throw new Error(`Post not found: ${slug}`);
@@ -15,5 +17,7 @@ const { Content, data } = await entry.render();
 <BlogLayout>
   <h1>{data.title}</h1>
   <p><small>{data.date}</small></p>
-  <article><Content /></article>
+  <article>
+    <Content />
+  </article>
 </BlogLayout>
