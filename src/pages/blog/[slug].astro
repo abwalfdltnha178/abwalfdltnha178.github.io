@@ -6,25 +6,39 @@ export async function getStaticPaths() {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
     params: { slug: post.slug },
+    props: { entry: post }, // 👈 اینجا post کامل را به عنوان entry به props اضافه می‌کنیم
   }));
 }
 
-const { slug } = Astro.params;
-const posts = await getCollection("blog");
-const entry = posts.find((post) => post.slug === slug);
+// 👈 دیگر نیازی به این خطوط نیست:
+// const { slug } = Astro.params;
+// const posts = await getCollection("blog");
+// const entry = posts.find((post) => post.slug === slug);
 
+// 👈 حالا entry را مستقیماً از Astro.props دریافت می‌کنیم
+const { entry } = Astro.props;
+
+// بررسی وجود entry
 if (!entry) {
+  // این حالت نباید اتفاق بیفتد اگر getStaticPaths به درستی کار کند.
+  // اما برای اطمینان می‌توان آن را نگه داشت.
   return { props: { error: true } };
 }
 
-const { Content, frontmatter } = await entry.render();
+// حالا frontmatter را از entry.data می‌خوانیم
+const { Content, data: frontmatter } = await entry.render();
+
+// برای ایمنی بیشتر در نمایش تاریخ و عنوان (که قبلا پیشنهاد دادم)
+const pageTitle = frontmatter.title || "عنوان نامشخص";
+// تاریخ را به فرمت فارسی تبدیل می‌کنیم، مطمئن شوید که frontmatter.date یک رشته قابل تبدیل به تاریخ است.
+const pageDate = frontmatter.date ? new Date(frontmatter.date).toLocaleDateString("fa-IR") : "تاریخ نامشخص";
 ---
 
 <BlogLayout>
-  {entry ? (
+  {entry ? ( // این شرط همیشه true خواهد بود اگر getStaticPaths درست کار کند.
     <>
-      <h1>{frontmatter.title}</h1>
-      <p><small>{frontmatter.date}</small></p>
+      <h1>{pageTitle}</h1>
+      <p><small>{pageDate}</small></p>
       <article><Content /></article>
     </>
   ) : (
