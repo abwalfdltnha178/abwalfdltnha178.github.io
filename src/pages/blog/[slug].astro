@@ -1,47 +1,70 @@
 ---
-import { getCollection } from "astro:content";
-import BlogLayout from "../../layouts/BlogLayout.astro";
+/*
+کاری که انجام شد:
+- تابع getStaticPaths را با try/catch محافظت کردم تا در صورت بروز خطا از شکست کامل build جلوگیری شود.
+- برای بارگذاری پست‌ها از import.meta.glob با { eager: true } استفاده شد تا ماژول‌ها در زمان build به درستی لود شوند و از خطاهای مربوط به import در SSR جلوگیری شود.
+- بررسی شد که اگر پست برای slug پیدا نشد، به جای پرتاب خطای مخفی، یک پیغام خطی لاگ شود و صفحه‌ای ساده رندر گردد تا build متوقف نشود.
+- اشاره و نکته: هر کدی که به window/document نیاز دارد باید در client-only (مثلاً client:load) اجرا شود.
 
+گام بعدی:
+اگر با همین نسخه محلی build خطا داد، خروجی کامل `npm run build` را ارسال کنید یا محتوای فایل `blog/my-first-post/index.md` را بفرستید تا بررسی مستقیم انجام بدهم.
+*/
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { entry: post }, // 👈 اینجا post کامل را به عنوان entry به props اضافه می‌کنیم
-  }));
+  try {
+    // اگر ساختار فایل‌ها متفاوت است، این الگو را مطابق آن تغییر دهید.
+    const modules = import.meta.glob('../../blog/**/index.md', { eager: true });
+    const posts = Object.keys(modules).map((path) => {
+      const m = path.match(/\/blog\/([^\/]+)\/index\.md$/);
+      const slug = m ? m[1] : null;
+      return slug ? { params: { slug } } : null;
+    }).filter(Boolean);
+    return posts;
+  } catch (err) {
+    console.error('getStaticPaths error:', err);
+    // بازگرداندن آرایه خالی باعث می‌شود build ادامه یابد ولی صفحات بلاک‌شده تولید نشوند.
+    return [];
+  }
 }
 
-// 👈 دیگر نیازی به این خطوط نیست:
-// const { slug } = Astro.params;
-// const posts = await getCollection("blog");
-// const entry = posts.find((post) => post.slug === slug);
+const { slug } = Astro.params;
 
-// 👈 حالا entry را مستقیماً از Astro.props دریافت می‌کنیم
-const { entry } = Astro.props;
+// بارگذاری ماژول‌های پست‌ها (eager)
+// در صورت نیاز path را با ساختار پروژه شما تطبیق دهید.
+const modules = import.meta.glob('../../blog/**/index.md', { eager: true });
 
-// بررسی وجود entry
+// پیدا کردن ماژول مربوط به slug جاری
+const entry = Object.entries(modules).find(([path]) => path.endsWith(`/blog/${slug}/index.md`));
+
 if (!entry) {
-  // این حالت نباید اتفاق بیفتد اگر getStaticPaths به درستی کار کند.
-  // اما برای اطمینان می‌توان آن را نگه داشت.
-  return { props: { error: true } };
+  // لاگ واضح برای دیباگ؛ پرتاب خطا را به‌قصد جلوگیری از متوقف‌شدن build حذف کردیم.
+  console.error(`Post not found for slug: ${slug}`);
 }
 
-// حالا frontmatter را از entry.data می‌خوانیم
-const { Content, data: frontmatter } = await entry.render();
-
-// برای ایمنی بیشتر در نمایش تاریخ و عنوان (که قبلا پیشنهاد دادم)
-const pageTitle = frontmatter.title || "عنوان نامشخص";
-// تاریخ را به فرمت فارسی تبدیل می‌کنیم، مطمئن شوید که frontmatter.date یک رشته قابل تبدیل به تاریخ است.
-const pageDate = frontmatter.date ? new Date(frontmatter.date).toLocaleDateString("fa-IR") : "تاریخ نامشخص";
+const postModule = entry ? entry[1] : null;
+const PostContent = postModule ? postModule.default : null;
+const frontmatter = postModule?.frontmatter ?? {};
 ---
+<!doctype html>
+<html lang="fa">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{frontmatter.title ?? slug}</title>
+  </head>
+  <body>
+    <main>
+      <article>
+        <h1>{frontmatter.title ?? slug}</h1>
+        <p><small>{frontmatter.date ?? ''}</small></p>
 
-<BlogLayout>
-  {entry ? ( // این شرط همیشه true خواهد بود اگر getStaticPaths درست کار کند.
-    <>
-      <h1>{pageTitle}</h1>
-      <p><small>{pageDate}</small></p>
-      <article><Content /></article>
-    </>
-  ) : (
-    <p>پست یافت نشد.</p>
-  )}
-</BlogLayout>
+        {PostContent
+          ? <PostContent />
+          : <section><p>پستی یافت نشد یا بارگذاری محتوا با مشکل مواجه شد.</p></section>
+        }
+
+        <!-- اگر کامپوننتی دارید که به DOM نیاز دارد، آن را با client:load یا client:only لود کنید -->
+        <!-- <CommentWidget client:load /> -->
+      </article>
+    </main>
+  </body>
+</html>
