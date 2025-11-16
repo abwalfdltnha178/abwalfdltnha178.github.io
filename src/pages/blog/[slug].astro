@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import BlogLayout from "../../layouts/BlogLayout.astro";
 
-// تابع لازم برای مسیرهای ایستا
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
@@ -15,23 +14,17 @@ const posts = await getCollection("blog");
 const entry = posts.find((post) => post.slug === slug);
 
 if (!entry) {
-  // اگر پست پیدا نشد، ارور بده یا صفحه 404 بساز
-  return {
-    props: {
-      error: true,
-    },
-  };
+  return { props: { error: true } };
 }
 
-// اگر پیدا شد، داده‌ها را رندر کن
-const { Content, data } = await entry.render();
+const { Content, frontmatter } = await entry.render();
 ---
 
 <BlogLayout>
   {entry ? (
     <>
-      <h1>{data.title}</h1>
-      <p><small>{data.date}</small></p>
+      <h1>{frontmatter.title}</h1>
+      <p><small>{frontmatter.date}</small></p>
       <article><Content /></article>
     </>
   ) : (
