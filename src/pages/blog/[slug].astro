@@ -1,7 +1,17 @@
 ---
+import SmartHead from '../../components/SmartHead.astro';
+
+/*
+این نسخه:
+- مسیرهای پست‌ها را از src/content/blog/*.md می‌گیرد
+- برای هر slug، ماژول مربوطه را پیدا می‌کند
+- از Component پیش‌فرض ماژول HTML را می‌سازد (await PostContent())
+- SmartHead را با title و content مقداردهی می‌کند
+- سپس محتوای واقعی پست را در body رندر می‌کند
+*/
+
 export async function getStaticPaths() {
   try {
-    // الگوی صحیح برای پوشه src/content/blog
     const modules = import.meta.glob('../../content/blog/*.md', { eager: true });
     const posts = Object.keys(modules).map((path) => {
       const m = path.match(/\/content\/blog\/([^\/]+)\.md$/) || path.match(/content\/blog\/([^\/]+)\.md$/);
@@ -17,12 +27,16 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 
-// بارگذاری ماژول‌های پست‌ها (eager) از src/content/blog
+// بارگذاری ماژول‌ها
 const modules = import.meta.glob('../../content/blog/*.md', { eager: true });
 
-// پیدا کردن ماژول مربوط به slug جاری
-const entry = Object.entries(modules).find(([path]) => {
-  return path.includes(`/content/blog/${slug}.md`) || path.endsWith(`/content/blog/${slug}.md`) || path.endsWith(`${slug}.md`);
+// پیدا کردن ماژول بر اساس نام فایل یا frontmatter.slug
+const entry = Object.entries(modules).find(([path, mod]) => {
+  const fmSlug = mod?.frontmatter?.slug;
+  if (fmSlug === slug) return true;
+  const m = path.match(/\/content\/blog\/([^\/]+)\.md$/) || path.match(/content\/blog\/([^\/]+)\.md$/);
+  const fileName = m ? m[1] : null;
+  return fileName === slug;
 });
 
 if (!entry) {
@@ -31,19 +45,28 @@ if (!entry) {
 
 const postModule = entry ? entry[1] : null;
 const PostContent = postModule ? postModule.default : null;
-const frontmatter = postModule?.frontmatter ?? {};
+const frontmatter = postModule?.frontmatter ?? { title: slug };
+
+// تولید HTML رشته‌ای از محتوا (اگر ممکن است). توجه: این الگو با نسخه‌های معمول Astro Content کار می‌کند.
+let contentHtml = '';
+if (PostContent) {
+  // اگر PostContent یک تابع/کامپوننت است، فراخوانی آن برای تولید HTML
+  // این الگو در بسیاری از پروژه‌ها کار می‌کند: await PostContent()
+  try {
+    contentHtml = (await PostContent()) || '';
+  } catch (e) {
+    // fallback: سعی می‌کنیم آن را به عنوان کامپوننت رندر کنیم در template
+    contentHtml = '';
+  }
+}
 ---
 <!doctype html>
 <html lang="fa">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{frontmatter.title ?? slug}</title>
-  </head>
+  <SmartHead title={frontmatter.title} content={contentHtml} />
   <body>
     <main>
       <article>
-        <h1>{frontmatter.title ?? slug}</h1>
+        <h1>{frontmatter.title}</h1>
         <p><small>{frontmatter.date ?? ''}</small></p>
 
         {PostContent
