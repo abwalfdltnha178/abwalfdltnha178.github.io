@@ -1,10 +1,11 @@
 ---
 export async function getStaticPaths() {
   try {
-    // اصلاح: فایل‌های markdown در پوشهٔ post/ قرار دارند
-    const modules = import.meta.glob('../../post/*.md', { eager: true });
+    // اصلاح‌شده: مسیر به پوشه post/ در ریشه پروژه
+    const modules = import.meta.glob('../../../post/*.md', { eager: true });
     const posts = Object.keys(modules).map((path) => {
-      const m = path.match(/\/post\/([^\/]+)\.md$/);
+      // استخراج نام فایل بدون پسوند به عنوان slug
+      const m = path.match(/\/post\/([^\/]+)\.md$/) || path.match(/post\/([^\/]+)\.md$/);
       const slug = m ? m[1] : null;
       return slug ? { params: { slug } } : null;
     }).filter(Boolean);
@@ -17,11 +18,13 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 
-// بارگذاری ماژول‌های پست‌ها (eager) — مسیر اصلاح‌شده
-const modules = import.meta.glob('../../post/*.md', { eager: true });
+// بارگذاری ماژول‌های پست‌ها (eager) با همان الگو
+const modules = import.meta.glob('../../../post/*.md', { eager: true });
 
-// پیدا کردن ماژول مربوط به slug جاری
-const entry = Object.entries(modules).find(([path]) => path.endsWith(`/post/${slug}.md`));
+// پیدا کردن ماژول مربوط به slug جاری (با includes برای پوشش مسیرهای مختلف)
+const entry = Object.entries(modules).find(([path]) => {
+  return path.includes(`/post/${slug}.md`) || path.endsWith(`/post/${slug}.md`) || path.endsWith(`${slug}.md`);
+});
 
 if (!entry) {
   console.error(`Post not found for slug: ${slug}`);
