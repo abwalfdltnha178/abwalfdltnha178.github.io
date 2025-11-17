@@ -1,0 +1,61 @@
+---
+/*
+SmartHead.astro
+ورودی‌ها:
+  - title: عنوان پست (string)
+  - content: محتوای HTML پست (string) — فرض می‌کنیم HTML از قبل تولید شده است (مثلاً await Content() یا await PostContent()).
+
+خلاصهٔ رفتار:
+  - اولین <img> را برای og:image/tw:image استخراج می‌کند
+  - 200 کاراکتر اول متن بدون تگ را برای description می‌سازد
+  - کلمات بولد شده `**کلمه**` را به عنوان keywords استخراج می‌کند
+*/
+const { title = '', content = '' } = Astro.props;
+
+// Normalize content to string
+const htmlContent = typeof content === 'string' ? content : String(content || '');
+
+// 1) پیدا کردن اولین تصویر (src)
+const imgMatch = htmlContent.match(/<img[^>]+src=(?:["'])([^"']+)(?:["'])/i);
+let ogImage = imgMatch ? imgMatch[1] : null;
+
+// اگر تصویر relative است، آن را بدون تغییر بگذار (یا در صورت نیاز اینجا prefix اضافه کن)
+if (!ogImage) {
+  // fallback به تصویر پیش‌فرض در public/ (توصیه: /assets/og-default.jpg یا /default-og.jpg)
+  ogImage = '/default-og.jpg';
+}
+
+// 2) ساختن description از متن (حذف تگ‌ها و فشرده‌سازی فضاها)
+const textOnly = htmlContent.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+const description = textOnly.slice(0, 200);
+
+// 3) استخراج کلمات bold مثل **کلمه**
+const boldMatches = [];
+const reBold = /\*\*(.*?)\*\*/g;
+let m;
+while ((m = reBold.exec(htmlContent)) !== null) {
+  if (m[1]) boldMatches.push(m[1].trim());
+}
+const keywords = Array.from(new Set(boldMatches.filter(k => k.length > 1))).join(', ');
+---
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>{title}</title>
+
+  <meta name="description" content={description} />
+  {keywords ? <meta name="keywords" content={keywords} /> : null}
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImage} />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+</head>
