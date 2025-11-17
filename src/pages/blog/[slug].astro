@@ -1,16 +1,10 @@
 ---
-/*
-کاری که انجام شد:
-- الگوی import.meta.glob و regexها از '../../blog/**/index.md' به '../../content/blog/*.md' تغییر یافت تا با محل واقعی فایل‌های پست (src/content/blog/*.md) همخوانی داشته باشد.
-- getStaticPaths اکنون مسیرهای موجود در src/content/blog را تولید می‌کند.
-- بارگذاری یک پست برای slug نیز با همین ماژول‌ها انجام می‌شود؛ در صورت پیدا نشدن پست لاگ می‌شود ولی صفحه با پیام مناسب رندر می‌گردد.
-*/
 export async function getStaticPaths() {
   try {
-    // الگوی اصلاح‌شده: فایل‌های markdown در src/content/blog/*.md
-    const modules = import.meta.glob('../../content/blog/*.md', { eager: true });
+    // اصلاح: فایل‌های markdown در پوشهٔ post/ قرار دارند
+    const modules = import.meta.glob('../../post/*.md', { eager: true });
     const posts = Object.keys(modules).map((path) => {
-      const m = path.match(/\/content\/blog\/([^\/]+)\.md$/);
+      const m = path.match(/\/post\/([^\/]+)\.md$/);
       const slug = m ? m[1] : null;
       return slug ? { params: { slug } } : null;
     }).filter(Boolean);
@@ -24,10 +18,10 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 
 // بارگذاری ماژول‌های پست‌ها (eager) — مسیر اصلاح‌شده
-const modules = import.meta.glob('../../content/blog/*.md', { eager: true });
+const modules = import.meta.glob('../../post/*.md', { eager: true });
 
 // پیدا کردن ماژول مربوط به slug جاری
-const entry = Object.entries(modules).find(([path]) => path.endsWith(`/content/blog/${slug}.md`));
+const entry = Object.entries(modules).find(([path]) => path.endsWith(`/post/${slug}.md`));
 
 if (!entry) {
   console.error(`Post not found for slug: ${slug}`);
@@ -54,8 +48,6 @@ const frontmatter = postModule?.frontmatter ?? {};
           ? <PostContent />
           : <section><p>پستی یافت نشد یا بارگذاری محتوا با مشکل مواجه شد.</p></section>
         }
-
-        <!-- اگر کامپوننتی دارید که به DOM نیاز دارد، آن را با client:load یا client:only لود کنید -->
       </article>
     </main>
   </body>
