@@ -1,11 +1,10 @@
 ---
 export async function getStaticPaths() {
   try {
-    // اصلاح‌شده: مسیر به پوشه post/ در ریشه پروژه
-    const modules = import.meta.glob('../../../post/*.md', { eager: true });
+    // الگوی صحیح برای پوشه src/content/blog
+    const modules = import.meta.glob('../../content/blog/*.md', { eager: true });
     const posts = Object.keys(modules).map((path) => {
-      // استخراج نام فایل بدون پسوند به عنوان slug
-      const m = path.match(/\/post\/([^\/]+)\.md$/) || path.match(/post\/([^\/]+)\.md$/);
+      const m = path.match(/\/content\/blog\/([^\/]+)\.md$/) || path.match(/content\/blog\/([^\/]+)\.md$/);
       const slug = m ? m[1] : null;
       return slug ? { params: { slug } } : null;
     }).filter(Boolean);
@@ -18,12 +17,12 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 
-// بارگذاری ماژول‌های پست‌ها (eager) با همان الگو
-const modules = import.meta.glob('../../../post/*.md', { eager: true });
+// بارگذاری ماژول‌های پست‌ها (eager) از src/content/blog
+const modules = import.meta.glob('../../content/blog/*.md', { eager: true });
 
-// پیدا کردن ماژول مربوط به slug جاری (با includes برای پوشش مسیرهای مختلف)
+// پیدا کردن ماژول مربوط به slug جاری
 const entry = Object.entries(modules).find(([path]) => {
-  return path.includes(`/post/${slug}.md`) || path.endsWith(`/post/${slug}.md`) || path.endsWith(`${slug}.md`);
+  return path.includes(`/content/blog/${slug}.md`) || path.endsWith(`/content/blog/${slug}.md`) || path.endsWith(`${slug}.md`);
 });
 
 if (!entry) {
