@@ -1,42 +1,35 @@
 ---
 /*
 کاری که انجام شد:
-- تابع getStaticPaths را با try/catch محافظت کردم تا در صورت بروز خطا از شکست کامل build جلوگیری شود.
-- برای بارگذاری پست‌ها از import.meta.glob با { eager: true } استفاده شد تا ماژول‌ها در زمان build به درستی لود شوند و از خطاهای مربوط به import در SSR جلوگیری شود.
-- بررسی شد که اگر پست برای slug پیدا نشد، به جای پرتاب خطای مخفی، یک پیغام خطی لاگ شود و صفحه‌ای ساده رندر گردد تا build متوقف نشود.
-- اشاره و نکته: هر کدی که به window/document نیاز دارد باید در client-only (مثلاً client:load) اجرا شود.
-
-گام بعدی:
-اگر با همین نسخه محلی build خطا داد، خروجی کامل `npm run build` را ارسال کنید یا محتوای فایل `blog/my-first-post/index.md` را بفرستید تا بررسی مستقیم انجام بدهم.
+- الگوی import.meta.glob و regexها از '../../blog/**/index.md' به '../../content/blog/*.md' تغییر یافت تا با محل واقعی فایل‌های پست (src/content/blog/*.md) همخوانی داشته باشد.
+- getStaticPaths اکنون مسیرهای موجود در src/content/blog را تولید می‌کند.
+- بارگذاری یک پست برای slug نیز با همین ماژول‌ها انجام می‌شود؛ در صورت پیدا نشدن پست لاگ می‌شود ولی صفحه با پیام مناسب رندر می‌گردد.
 */
 export async function getStaticPaths() {
   try {
-    // اگر ساختار فایل‌ها متفاوت است، این الگو را مطابق آن تغییر دهید.
-    const modules = import.meta.glob('../../blog/**/index.md', { eager: true });
+    // الگوی اصلاح‌شده: فایل‌های markdown در src/content/blog/*.md
+    const modules = import.meta.glob('../../content/blog/*.md', { eager: true });
     const posts = Object.keys(modules).map((path) => {
-      const m = path.match(/\/blog\/([^\/]+)\/index\.md$/);
+      const m = path.match(/\/content\/blog\/([^\/]+)\.md$/);
       const slug = m ? m[1] : null;
       return slug ? { params: { slug } } : null;
     }).filter(Boolean);
     return posts;
   } catch (err) {
     console.error('getStaticPaths error:', err);
-    // بازگرداندن آرایه خالی باعث می‌شود build ادامه یابد ولی صفحات بلاک‌شده تولید نشوند.
     return [];
   }
 }
 
 const { slug } = Astro.params;
 
-// بارگذاری ماژول‌های پست‌ها (eager)
-// در صورت نیاز path را با ساختار پروژه شما تطبیق دهید.
-const modules = import.meta.glob('../../blog/**/index.md', { eager: true });
+// بارگذاری ماژول‌های پست‌ها (eager) — مسیر اصلاح‌شده
+const modules = import.meta.glob('../../content/blog/*.md', { eager: true });
 
 // پیدا کردن ماژول مربوط به slug جاری
-const entry = Object.entries(modules).find(([path]) => path.endsWith(`/blog/${slug}/index.md`));
+const entry = Object.entries(modules).find(([path]) => path.endsWith(`/content/blog/${slug}.md`));
 
 if (!entry) {
-  // لاگ واضح برای دیباگ؛ پرتاب خطا را به‌قصد جلوگیری از متوقف‌شدن build حذف کردیم.
   console.error(`Post not found for slug: ${slug}`);
 }
 
@@ -63,7 +56,6 @@ const frontmatter = postModule?.frontmatter ?? {};
         }
 
         <!-- اگر کامپوننتی دارید که به DOM نیاز دارد، آن را با client:load یا client:only لود کنید -->
-        <!-- <CommentWidget client:load /> -->
       </article>
     </main>
   </body>
