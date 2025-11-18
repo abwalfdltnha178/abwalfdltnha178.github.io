@@ -16,16 +16,22 @@
 ## در حال مهاجرت به آسترو جی اس هستیم...
 به دلیل کندی بالا و خطای های غیر منظره جکیل و افزونه های قدیمی و پشتیبانی نشده می خوام برم آسترو جی اس 😁😁
 
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="25">
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6a11cb" />
+      <stop offset="100%" stop-color="#2575fc" />
+    </linearGradient>
+  </defs>
 
-<div style="width: 100%; background: #ddd; border-radius: 8px;">
-  <div style="width: 70%; 
-              background: linear-gradient(90deg, #6a11cb, #2575fc); 
-              padding: 4px 0; 
-              border-radius: 8px;
-              text-align: center;
-              color: white;
-              font-weight: bold;
-              font-size: 12px;">
+  <!-- پس‌زمینه -->
+  <rect width="300" height="25" fill="#ddd" rx="8" />
+
+  <!-- نوار پیشرفت (70%) -->
+  <rect width="210" height="25" fill="url(#grad)" rx="8" />
+
+  <!-- متن درصد -->
+  <text x="150" y="17" fill="white" font-size="12" text-anchor="middle" font-weight="bold">
     70%
-  </div>
-</div>
+  </text>
+</svg>
