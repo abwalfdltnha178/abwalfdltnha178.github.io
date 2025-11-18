@@ -16,22 +16,5 @@
 ## در حال مهاجرت به آسترو جی اس هستیم...
 به دلیل کندی بالا و خطای های غیر منظره جکیل و افزونه های قدیمی و پشتیبانی نشده می خوام برم آسترو جی اس 😁😁
 
-<svg xmlns="http://www.w3.org/2000/svg" width="300" height="25">
-  <defs>
-    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#6a11cb" />
-      <stop offset="100%" stop-color="#2575fc" />
-    </linearGradient>
-  </defs>
-
-  <!-- پس‌زمینه -->
-  <rect width="300" height="25" fill="#ddd" rx="8" />
-
-  <!-- نوار پیشرفت (70%) -->
-  <rect width="210" height="25" fill="url(#grad)" rx="8" />
-
-  <!-- متن درصد -->
-  <text x="150" y="17" fill="white" font-size="12" text-anchor="middle" font-weight="bold">
-    70%
-  </text>
-</svg>
+# **پیشرفت**
+![پیشرفت ۷۰ درصدی پروژه ](https://raw.githubusercontent.com/abwalfdltnha178/abwalfdltnha178.github.io/0ea6e436668b088629ae0640f7b0e69ef85be6de/svg/70%25.svg)
