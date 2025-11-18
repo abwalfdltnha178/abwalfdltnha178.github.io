@@ -15,3 +15,17 @@
 
 ## در حال مهاجرت به آسترو جی اس هستیم...
 به دلیل کندی بالا و خطای های غیر منظره جکیل و افزونه های قدیمی و پشتیبانی نشده می خوام برم آسترو جی اس 😁😁
+
+
+<div style="width: 100%; background: #ddd; border-radius: 8px;">
+  <div style="width: 70%; 
+              background: linear-gradient(90deg, #6a11cb, #2575fc); 
+              padding: 4px 0; 
+              border-radius: 8px;
+              text-align: center;
+              color: white;
+              font-weight: bold;
+              font-size: 12px;">
+    70%
+  </div>
+</div>
