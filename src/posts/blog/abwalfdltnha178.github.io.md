@@ -1,8 +1,6 @@
 ---
-layout: post
 title: "abwalfdltnha178.github.io"
-date: 2024-05-19 12:00:00 +0000
-categories: [logo]
+date: "2024-05-19"
 ---
 # لوگوی سایت abwalfdltnha178.github.io
 این هم از لوگوی سایت **abwalfdltnha178.github.io** با فرمت **SVG** و حجم پایین و کیفیت بالا 
