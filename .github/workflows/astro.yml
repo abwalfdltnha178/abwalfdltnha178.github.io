@@ -23,7 +23,9 @@ jobs:
 
       - name: Set Last Commit Date
         id: get_date
-        run: echo "LAST_COMMIT_DATE=$(git log -1 --format=%cI)" >> $GITHUB_ENV
+        run: |
+          DATE=$(git log -1 --format=%cI | cut -d'T' -f1)
+          echo "LAST_COMMIT_DATE=$DATE" >> $GITHUB_ENV
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
