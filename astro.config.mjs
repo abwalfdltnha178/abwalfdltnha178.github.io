@@ -7,4 +7,9 @@ export default defineConfig({
       theme: 'github-dark'
     }
   }
+  vite: {
+    define: {
+      'import.meta.env.PUBLIC_LAST_COMMIT_DATE': JSON.stringify(process.env.PUBLIC_LAST_COMMIT_DATE)
+    }
+  }
 });
