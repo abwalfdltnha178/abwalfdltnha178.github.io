@@ -9,10 +9,11 @@ const date = import.meta.env.PUBLIC_LAST_COMMIT_DATE
   : "2025-11-15";
 ---
 
-<html lang="fa">
+<html dir="rtl" lang="fa">
   <SmartHead title={title} content={"متن"} date={date} />
   <body>
     <h1>👋 سلام!</h1>
+    <p>آخرین بروزرسانی:{date}</p>
     <p>این وبسایت با <strong>Astro</strong> ساخته شده است.</p>
     <a href="/blog">رفتن به وبلاگ →</a>
   </body>
