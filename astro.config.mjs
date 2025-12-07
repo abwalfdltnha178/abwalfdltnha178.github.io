@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import sitemap from 'astro-sitemap';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://abwalfdltnha178.github.io', // آدرس سایت خودتان
@@ -12,5 +12,7 @@ export default defineConfig({
       'import.meta.env.PUBLIC_LAST_COMMIT_DATE': JSON.stringify(process.env.PUBLIC_LAST_COMMIT_DATE)
     }
   },
-  integrations: [sitemap()]
+  integrations: [sitemap({
+      customSitemaps: ['https://example.com/blog/sitemap.xml'],
+    }),]
 });
