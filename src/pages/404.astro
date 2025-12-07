@@ -1,0 +1,34 @@
+---
+export const prerender = true;
+---
+
+<!DOCTYPE html>
+<html lang="fa">
+  <head>
+    <meta charset="utf-8" />
+    <title>404 - صفحه پیدا نشد</title>
+
+    <!-- جلوگیری از ایندکس شدن 404 -->
+    <meta name="robots" content="noindex, nofollow" />
+  </head>
+
+  <body>
+
+    <!-- بدون هیچ متن قابل ایندکس -->
+
+    <script>
+      const current = window.location.pathname;
+
+      // ریدایرکت صفحات fa → نسخه جدید
+      if (current.startsWith("/fa/")) {
+        const newPath = current.replace(/^\/fa\//, "/");
+
+        // جلوگیری از حلقه بی‌نهایت
+        if (newPath !== current) {
+          window.location.replace(newPath);
+        }
+      }
+    </script>
+
+  </body>
+</html>
