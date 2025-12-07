@@ -1,17 +1,16 @@
 import { defineConfig } from 'astro/config';
+import sitemap from 'astro-sitemap';
 
 export default defineConfig({
+  site: 'https://abwalfdltnha178.github.io', // آدرس سایت خودتان
   markdown: {
     syntaxHighlight: 'shiki',
-    shikiConfig: {
-      theme: 'github-dark'
-    }
+    shikiConfig: { theme: 'github-dark' },
   },
-
-  // 👈 ویرگول اینجا باید باشد
   vite: {
     define: {
       'import.meta.env.PUBLIC_LAST_COMMIT_DATE': JSON.stringify(process.env.PUBLIC_LAST_COMMIT_DATE)
     }
-  }
+  },
+  integrations: [sitemap()]
 });
