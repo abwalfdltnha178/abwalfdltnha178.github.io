@@ -12,7 +12,5 @@ export default defineConfig({
       'import.meta.env.PUBLIC_LAST_COMMIT_DATE': JSON.stringify(process.env.PUBLIC_LAST_COMMIT_DATE)
     }
   },
-  integrations: [sitemap({
-      customSitemaps: ['https://abwalfdltnha178.github.io/sitemap.xml'],
-    }),]
+  integrations: [sitemap({}),]
 });
