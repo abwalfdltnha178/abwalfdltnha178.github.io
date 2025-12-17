@@ -13,6 +13,6 @@ export default defineConfig({
     }
   },
   integrations: [sitemap({
-      customSitemaps: ['https://example.com/blog/sitemap.xml'],
+      customSitemaps: ['https://abwalfdltnha178.github.io/blog/sitemap.xml'],
     }),]
 });
